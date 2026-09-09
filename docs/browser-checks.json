@@ -1,0 +1,96 @@
+{
+  "checks": [
+    "70B flagship recommends a conditional Local Apple path",
+    "32K increases peak KV memory",
+    "32K local-only returns no eligible path",
+    "startup recommendation changes to API",
+    "company recommendation changes to cloud VM",
+    "local-only leaves exactly one eligible candidate",
+    "one-year table updates",
+    "three-year table updates",
+    "cloud/local break-even is calculated",
+    "no invented API crossing at default usage",
+    "keyboard utilization change updates state and crossing",
+    "zero capex override is labeled",
+    "price reset restores educational source",
+    "manual FX placeholder is disclosed",
+    "TRY conversion changes local cost by configured factor",
+    "unified-memory explanation available",
+    "scale pressure view renders",
+    "rapid growth shows explicit 100-request peak",
+    "ranking explains normalized contributions",
+    "zero weights do not manufacture a winner",
+    "balanced reset restores a conditional ranked recommendation",
+    "10 lesson chapter controls exist",
+    "quiz responds with explanation",
+    "lesson progresses to memory",
+    "guided experiment changes real workload",
+    "reset clears experimental settings",
+    "mobile continue collapses workload and reveals candidates",
+    "mobile has six card alternatives",
+    "mobile selection exposes failed memory constraint",
+    "mobile has no horizontal page overflow",
+    "Turkish heading is translated",
+    "Turkish cost mode works on mobile",
+    "mobile cost has no horizontal overflow",
+    "320px comparison has no horizontal overflow",
+    "320px Turkish Maliyet has no horizontal overflow",
+    "320px Turkish Bellek has no horizontal overflow",
+    "320px Turkish Ölçek has no horizontal overflow",
+    "320px Turkish Karar has no horizontal overflow",
+    "320px Turkish Öğren has no horizontal overflow",
+    "production all external links have safe new-tab attributes",
+    "production cost mode renders calculated break-even",
+    "production memory mode exposes the equation",
+    "production tab console has no errors",
+    "production scenario team70 has a finite conditional decision",
+    "production scenario personal has a finite conditional decision",
+    "production scenario startup has a finite conditional decision",
+    "production scenario always has a finite conditional decision",
+    "production scenario privacy has a finite conditional decision",
+    "production scenario company has a finite conditional decision",
+    "production scenario batch has a finite conditional decision",
+    "real keyboard zero utilization preserves peak capacity",
+    "downloaded JSON report validated on disk (schema, 6 candidates, exact 70B memory)",
+    "tablet stacked layout has no horizontal overflow",
+    "tablet topology remains entirely in its viewport",
+    "production Turkish mobile recommendation is localized",
+    "production mobile cost still calculates break-even",
+    "final production console remains clean",
+    "15 percent utilization is reflected in React state",
+    "15 percent utilization preserves peak memory"
+  ],
+  "scenarioChecks": [
+    {
+      "scenario": "team70",
+      "result": "Conditional recommendation: Local Apple"
+    },
+    {
+      "scenario": "personal",
+      "result": "Conditional recommendation: Token API"
+    },
+    {
+      "scenario": "startup",
+      "result": "Conditional recommendation: Token API"
+    },
+    {
+      "scenario": "always",
+      "result": "Conditional recommendation: Local Apple"
+    },
+    {
+      "scenario": "privacy",
+      "result": "Conditional recommendation: Local Apple"
+    },
+    {
+      "scenario": "company",
+      "result": "Conditional recommendation: Cloud GPU VM"
+    },
+    {
+      "scenario": "batch",
+      "result": "Conditional recommendation: Token API"
+    }
+  ],
+  "method": "Codex IAB via CUA, native keyboard and Playwright locators; downloaded report validated on disk",
+  "productionURL": "http://127.0.0.1:4300",
+  "date": "2026-09-09"
+}
