@@ -12,7 +12,7 @@
 
 Production validates locked dependencies, TypeScript, domain tests, Vite build and artifact hashes before uploading prebuilt `dist`. Official actions are pinned to verified immutable commits. Production jobs serialize and never cancel an in-flight upload. The separate CI workflow runs for pull requests or explicit dispatch; it does not deploy.
 
-`/release.json` exposes the intended Git commit, build timestamp and SHA-256 hashes for the HTML, JavaScript, CSS, favicon and Azure configuration. Verify that its commit equals the successful deployment run's SHA and the remote `main` commit. The generated host, Azure Ready state and source branch, representative assets, security headers, and desktop/mobile interactions must all agree before declaring a release complete.
+`/release.json` exposes the intended Git commit, build timestamp and SHA-256 hashes for the publicly served HTML, JavaScript, CSS and favicon. The separate `deploymentConfigSha256` field verifies the Azure configuration before upload; Azure consumes that file instead of serving it publicly. Verify that its commit equals the successful deployment run's SHA and the remote `main` commit. The generated host, Azure Ready state and source branch, representative assets, security headers, and desktop/mobile interactions must all agree before declaring a release complete.
 
 The resource was provisioned without Azure source integration to avoid a competing generated workflow. No custom domain or DNS change is included in this release. `dcl.aserdargun.com` remains the intended future custom domain.
 

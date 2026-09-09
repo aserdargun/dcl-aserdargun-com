@@ -10,11 +10,13 @@ if (process.argv.includes("--verify")) {
   if (
     r.application !== "dcl-aserdargun-com" ||
     !r.assets["index.html"] ||
-    !r.assets["staticwebapp.config.json"]
+    !r.deploymentConfigSha256
   )
     throw new Error("Invalid release manifest");
   if (process.env.GITHUB_SHA && r.commit !== process.env.GITHUB_SHA)
     throw new Error("Release SHA mismatch");
+  if (hash(resolve(artifact, "staticwebapp.config.json")) !== r.deploymentConfigSha256)
+    throw new Error("Deployment configuration mismatch");
   for (const [path, digest] of Object.entries(r.assets))
     if (hash(resolve(artifact, path)) !== digest)
       throw new Error(`Asset mismatch: ${path}`);
@@ -36,7 +38,6 @@ if (process.argv.includes("--verify")) {
   const html = readFileSync(resolve(artifact, "index.html"), "utf8");
   const assets = [
     "index.html",
-    "staticwebapp.config.json",
     "favicon.svg",
     ...Array.from(html.matchAll(/(?:src|href)="(\/assets\/[^\"]+)"/g), (m) =>
       m[1].slice(1),
@@ -51,6 +52,7 @@ if (process.argv.includes("--verify")) {
     commit,
     builtAt: new Date().toISOString(),
     dataStatus: "EDUCATIONAL_DEFAULT",
+    deploymentConfigSha256: hash(resolve(artifact, "staticwebapp.config.json")),
     assets: Object.fromEntries(
       assets.map((p) => [p, hash(resolve(artifact, p))]),
     ),
