@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "0.1",
+  "id": "dcl",
+  "code": "dcl",
+  "name": "Deployment Choice Laboratory",
+  "canonicalUrl": "https://dcl.aserdargun.com/",
+  "type": "interactive-lab",
+  "status": "live",
+  "tagline": {
+    "en": "One workload. Six deployment paths.",
+    "tr": "Bir iş yükü. Altı dağıtım seçeneği."
+  },
+  "guidingQuestion": {
+    "en": "Which deployment remains eligible for this workload and its constraints?",
+    "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
+  },
+  "concepts": [
+    "concept:deployment-choice",
+    "concept:capacity-planning",
+    "concept:ownership-cost",
+    "concept:concurrency",
+    "concept:kv-cache"
+  ],
+  "capabilities": {
+    "reset": true,
+    "compare": true,
+    "guidedLesson": true,
+    "experiments": true,
+    "assumptions": true,
+    "evidence": true
+  },
+  "experiments": [
+    {
+      "id": "team70",
+      "title": {
+        "en": "70B team",
+        "tr": "70B ekibi"
+      },
+      "route": "/?scenario=team70"
+    },
+    {
+      "id": "personal",
+      "title": {
+        "en": "Personal developer",
+        "tr": "Bireysel geliştirici"
+      },
+      "route": "/?scenario=personal"
+    },
+    {
+      "id": "startup",
+      "title": {
+        "en": "API-first startup",
+        "tr": "API ile başlayan girişim"
+      },
+      "route": "/?scenario=startup"
+    },
+    {
+      "id": "always",
+      "title": {
+        "en": "Always-on service",
+        "tr": "Kesintisiz servis"
+      },
+      "route": "/?scenario=always"
+    },
+    {
+      "id": "privacy",
+      "title": {
+        "en": "Privacy first",
+        "tr": "Önce gizlilik"
+      },
+      "route": "/?scenario=privacy"
+    },
+    {
+      "id": "company",
+      "title": {
+        "en": "30-person company",
+        "tr": "30 kişilik şirket"
+      },
+      "route": "/?scenario=company"
+    },
+    {
+      "id": "batch",
+      "title": {
+        "en": "Bursty batch",
+        "tr": "Aralıklı toplu iş"
+      },
+      "route": "/?scenario=batch"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "deployment-101",
+      "title": {
+        "en": "Deployment 101",
+        "tr": "Dağıtım 101"
+      },
+      "route": "/?lesson=deployment-101"
+    }
+  ],
+  "evidencePolicy": {
+    "summary": {
+      "en": "Estimated defaults and user inputs feed calculated results. No live prices, measured performance or universal winner.",
+      "tr": "Tahmini varsayımlar ve kullanıcı girdileri hesaplanmış sonuçları besler. Canlı fiyat, ölçülmüş performans veya evrensel kazanan yoktur."
+    },
+    "allowedKinds": [
+      "estimated",
+      "user-input",
+      "calculated"
+    ]
+  },
+  "assumptions": [
+    {
+      "id": "educational-defaults",
+      "title": {
+        "en": "Educational defaults",
+        "tr": "Eğitim varsayımları"
+      },
+      "description": {
+        "en": "Prices, utilization and capacity inputs are editable educational assumptions, not live quotes or measured throughput. Candidate-level source and unknown labels remain authoritative.",
+        "tr": "Fiyat, kullanım ve kapasite girdileri değiştirilebilir eğitim varsayımlarıdır; canlı teklif veya ölçülmüş hız değildir. Seçeneklerin kaynak ve bilinmeyen etiketleri geçerlidir."
+      }
+    },
+    {
+      "id": "bounded-model",
+      "title": {
+        "en": "Bounded decision model",
+        "tr": "Sınırlı karar modeli"
+      },
+      "description": {
+        "en": "Peak memory uses simplified weight and full-attention KV formulas. Cost uses fixed demand; taxes, labor, financing, depreciation and residual value are excluded. Eligibility is separate from preference ranking.",
+        "tr": "Tepe bellek basitleştirilmiş ağırlık ve tam dikkat KV formüllerini kullanır. Maliyet sabit talebe dayanır; vergi, emek, finansman, amortisman ve kalıntı değer dışarıdadır. Uygunluk tercih sıralamasından ayrıdır."
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "schemaVersion": "0.1",
+      "id": "defaults",
+      "kind": "estimated",
+      "verificationStatus": "unverified",
+      "label": {
+        "en": "Price and capacity defaults",
+        "tr": "Fiyat ve kapasite varsayımları"
+      },
+      "notes": {
+        "en": "Educational estimates carry no verification of current market prices or serving performance.",
+        "tr": "Eğitim tahminleri güncel piyasa fiyatını veya servis performansını doğrulamaz."
+      },
+      "assumptionRefs": [
+        "educational-defaults",
+        "bounded-model"
+      ]
+    },
+    {
+      "schemaVersion": "0.1",
+      "id": "inputs",
+      "kind": "user-input",
+      "verificationStatus": "not-applicable",
+      "label": {
+        "en": "Workload and overrides",
+        "tr": "İş yükü ve değişiklikler"
+      },
+      "notes": {
+        "en": "User edits and selected presets define the current calculation; changing a scenario can retain price overrides.",
+        "tr": "Kullanıcı düzenlemeleri ve seçilen önayar mevcut hesabı belirler; senaryo değişimi fiyat düzenlemelerini koruyabilir."
+      },
+      "assumptionRefs": [
+        "educational-defaults",
+        "bounded-model"
+      ]
+    },
+    {
+      "schemaVersion": "0.1",
+      "id": "results",
+      "kind": "calculated",
+      "verificationStatus": "not-applicable",
+      "label": {
+        "en": "Memory, cost and eligibility",
+        "tr": "Bellek, maliyet ve uygunluk"
+      },
+      "notes": {
+        "en": "Results follow the displayed inputs and formulas. A calculated ranking is conditional, not a universal purchase recommendation.",
+        "tr": "Sonuçlar gösterilen girdileri ve formülleri izler. Hesaplanan sıralama koşulludur; evrensel satın alma önerisi değildir."
+      },
+      "assumptionRefs": [
+        "educational-defaults",
+        "bounded-model"
+      ],
+      "calculatedFrom": [
+        "defaults",
+        "inputs"
+      ]
+    }
+  ],
+  "related": {
+    "theory": [
+      {
+        "id": "lcl",
+        "label": {
+          "en": "LCL",
+          "tr": "LCL"
+        },
+        "url": "https://lcl.aserdargun.com/",
+        "localizedUrls": {
+          "en": "https://lcl.aserdargun.com/?lang=en",
+          "tr": "https://lcl.aserdargun.com/?lang=tr"
+        }
+      },
+      {
+        "id": "cld",
+        "label": {
+          "en": "CLD",
+          "tr": "CLD"
+        },
+        "url": "https://cld.aserdargun.com/",
+        "localizedUrls": {
+          "en": "https://cld.aserdargun.com/?lang=en",
+          "tr": "https://cld.aserdargun.com/?lang=tr"
+        }
+      }
+    ],
+    "labs": [
+      {
+        "id": "tfl",
+        "label": {
+          "en": "TFL",
+          "tr": "TFL"
+        },
+        "url": "https://tfl.aserdargun.com/",
+        "localizedUrls": {
+          "en": "https://tfl.aserdargun.com/?lang=en",
+          "tr": "https://tfl.aserdargun.com/?lang=tr"
+        }
+      },
+      {
+        "id": "gex",
+        "label": {
+          "en": "GEX",
+          "tr": "GEX"
+        },
+        "url": "https://gex.aserdargun.com/",
+        "localizedUrls": {
+          "en": "https://gex.aserdargun.com/?lang=en",
+          "tr": "https://gex.aserdargun.com/?lang=tr"
+        }
+      },
+      {
+        "id": "arl",
+        "label": {
+          "en": "ARL",
+          "tr": "ARL"
+        },
+        "url": "https://arl.aserdargun.com/",
+        "localizedUrls": {
+          "en": "https://arl.aserdargun.com/?lang=en",
+          "tr": "https://arl.aserdargun.com/?lang=tr"
+        }
+      }
+    ]
+  }
+}

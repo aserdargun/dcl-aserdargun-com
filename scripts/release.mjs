@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, copyFileSync } from "node:fs";
 import { resolve } from "node:path";
 const artifact = resolve("dist");
 const hash = (path) =>
@@ -35,10 +35,12 @@ if (process.argv.includes("--verify")) {
       commit = "uncommitted";
     }
   }
+  copyFileSync("lab.manifest.json", resolve(artifact, "lab.manifest.json"));
   const html = readFileSync(resolve(artifact, "index.html"), "utf8");
   const assets = [
     "index.html",
     "favicon.svg",
+    "lab.manifest.json",
     ...Array.from(html.matchAll(/(?:src|href)="(\/assets\/[^\"]+)"/g), (m) =>
       m[1].slice(1),
     ),

@@ -1,0 +1,401 @@
+[
+  {
+    "schemaVersion": "0.1",
+    "id": "team70",
+    "title": {
+      "en": "70B team",
+      "tr": "70B ekibi"
+    },
+    "guidingQuestion": {
+      "en": "Which deployment remains eligible for this workload and its constraints?",
+      "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
+    },
+    "description": {
+      "en": "Where should this 70B model run? Size for 20 peak requests; price the average load.",
+      "tr": "Bu 70B model nerede çalışmalı? Kapasiteyi 20 tepe isteğe, maliyeti ortalama yüke göre inceleyin."
+    },
+    "concepts": [
+      "concept:deployment-choice",
+      "concept:capacity-planning",
+      "concept:ownership-cost",
+      "concept:concurrency",
+      "concept:kv-cache"
+    ],
+    "learningObjectives": [
+      {
+        "en": "Where should this 70B model run? Size for 20 peak requests; price the average load.",
+        "tr": "Bu 70B model nerede çalışmalı? Kapasiteyi 20 tepe isteğe, maliyeti ortalama yüke göre inceleyin."
+      }
+    ],
+    "observations": [
+      {
+        "id": "tradeoffs",
+        "label": {
+          "en": "Constraints and trade-offs",
+          "tr": "Kısıtlar ve ödünleşimler"
+        },
+        "explanation": {
+          "en": "Where should this 70B model run? Size for 20 peak requests; price the average load.",
+          "tr": "Bu 70B model nerede çalışmalı? Kapasiteyi 20 tepe isteğe, maliyeti ortalama yüke göre inceleyin."
+        },
+        "evidenceRefs": [
+          "results"
+        ]
+      }
+    ],
+    "assumptionRefs": [
+      "educational-defaults",
+      "bounded-model"
+    ],
+    "evidenceRefs": [
+      "defaults",
+      "inputs",
+      "results"
+    ],
+    "config": {
+      "scenarioId": "team70"
+    }
+  },
+  {
+    "schemaVersion": "0.1",
+    "id": "personal",
+    "title": {
+      "en": "Personal developer",
+      "tr": "Bireysel geliştirici"
+    },
+    "guidingQuestion": {
+      "en": "Which deployment remains eligible for this workload and its constraints?",
+      "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
+    },
+    "description": {
+      "en": "Sparse coding workloads can leave purchased capacity idle.",
+      "tr": "Seyrek kodlama iş yükleri satın alınan kapasiteyi boşta bırakabilir."
+    },
+    "concepts": [
+      "concept:deployment-choice",
+      "concept:capacity-planning",
+      "concept:ownership-cost",
+      "concept:concurrency",
+      "concept:kv-cache"
+    ],
+    "learningObjectives": [
+      {
+        "en": "Sparse coding workloads can leave purchased capacity idle.",
+        "tr": "Seyrek kodlama iş yükleri satın alınan kapasiteyi boşta bırakabilir."
+      }
+    ],
+    "observations": [
+      {
+        "id": "tradeoffs",
+        "label": {
+          "en": "Constraints and trade-offs",
+          "tr": "Kısıtlar ve ödünleşimler"
+        },
+        "explanation": {
+          "en": "Sparse coding workloads can leave purchased capacity idle.",
+          "tr": "Seyrek kodlama iş yükleri satın alınan kapasiteyi boşta bırakabilir."
+        },
+        "evidenceRefs": [
+          "results"
+        ]
+      }
+    ],
+    "assumptionRefs": [
+      "educational-defaults",
+      "bounded-model"
+    ],
+    "evidenceRefs": [
+      "defaults",
+      "inputs",
+      "results"
+    ],
+    "config": {
+      "scenarioId": "personal"
+    }
+  },
+  {
+    "schemaVersion": "0.1",
+    "id": "startup",
+    "title": {
+      "en": "API-first startup",
+      "tr": "API ile başlayan girişim"
+    },
+    "guidingQuestion": {
+      "en": "Which deployment remains eligible for this workload and its constraints?",
+      "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
+    },
+    "description": {
+      "en": "Start with little demand; inspect provider dependence as demand grows.",
+      "tr": "Az taleple başlayın; talep büyürken sağlayıcı bağımlılığını inceleyin."
+    },
+    "concepts": [
+      "concept:deployment-choice",
+      "concept:capacity-planning",
+      "concept:ownership-cost",
+      "concept:concurrency",
+      "concept:kv-cache"
+    ],
+    "learningObjectives": [
+      {
+        "en": "Start with little demand; inspect provider dependence as demand grows.",
+        "tr": "Az taleple başlayın; talep büyürken sağlayıcı bağımlılığını inceleyin."
+      }
+    ],
+    "observations": [
+      {
+        "id": "tradeoffs",
+        "label": {
+          "en": "Constraints and trade-offs",
+          "tr": "Kısıtlar ve ödünleşimler"
+        },
+        "explanation": {
+          "en": "Start with little demand; inspect provider dependence as demand grows.",
+          "tr": "Az taleple başlayın; talep büyürken sağlayıcı bağımlılığını inceleyin."
+        },
+        "evidenceRefs": [
+          "results"
+        ]
+      }
+    ],
+    "assumptionRefs": [
+      "educational-defaults",
+      "bounded-model"
+    ],
+    "evidenceRefs": [
+      "defaults",
+      "inputs",
+      "results"
+    ],
+    "config": {
+      "scenarioId": "startup"
+    }
+  },
+  {
+    "schemaVersion": "0.1",
+    "id": "always",
+    "title": {
+      "en": "Always-on service",
+      "tr": "Kesintisiz servis"
+    },
+    "guidingQuestion": {
+      "en": "Which deployment remains eligible for this workload and its constraints?",
+      "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
+    },
+    "description": {
+      "en": "Stable high use changes ownership economics; one node still has no failover.",
+      "tr": "Sürekli yüksek kullanım sahiplik maliyetini değiştirir; tek düğüm hâlâ yedeksizdir."
+    },
+    "concepts": [
+      "concept:deployment-choice",
+      "concept:capacity-planning",
+      "concept:ownership-cost",
+      "concept:concurrency",
+      "concept:kv-cache"
+    ],
+    "learningObjectives": [
+      {
+        "en": "Stable high use changes ownership economics; one node still has no failover.",
+        "tr": "Sürekli yüksek kullanım sahiplik maliyetini değiştirir; tek düğüm hâlâ yedeksizdir."
+      }
+    ],
+    "observations": [
+      {
+        "id": "tradeoffs",
+        "label": {
+          "en": "Constraints and trade-offs",
+          "tr": "Kısıtlar ve ödünleşimler"
+        },
+        "explanation": {
+          "en": "Stable high use changes ownership economics; one node still has no failover.",
+          "tr": "Sürekli yüksek kullanım sahiplik maliyetini değiştirir; tek düğüm hâlâ yedeksizdir."
+        },
+        "evidenceRefs": [
+          "results"
+        ]
+      }
+    ],
+    "assumptionRefs": [
+      "educational-defaults",
+      "bounded-model"
+    ],
+    "evidenceRefs": [
+      "defaults",
+      "inputs",
+      "results"
+    ],
+    "config": {
+      "scenarioId": "always"
+    }
+  },
+  {
+    "schemaVersion": "0.1",
+    "id": "privacy",
+    "title": {
+      "en": "Privacy first",
+      "tr": "Önce gizlilik"
+    },
+    "guidingQuestion": {
+      "en": "Which deployment remains eligible for this workload and its constraints?",
+      "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
+    },
+    "description": {
+      "en": "Local processing is a hard boundary. External paths are ineligible.",
+      "tr": "Yerel işleme kesin bir sınırdır. Harici seçenekler elenir."
+    },
+    "concepts": [
+      "concept:deployment-choice",
+      "concept:capacity-planning",
+      "concept:ownership-cost",
+      "concept:concurrency",
+      "concept:kv-cache"
+    ],
+    "learningObjectives": [
+      {
+        "en": "Local processing is a hard boundary. External paths are ineligible.",
+        "tr": "Yerel işleme kesin bir sınırdır. Harici seçenekler elenir."
+      }
+    ],
+    "observations": [
+      {
+        "id": "tradeoffs",
+        "label": {
+          "en": "Constraints and trade-offs",
+          "tr": "Kısıtlar ve ödünleşimler"
+        },
+        "explanation": {
+          "en": "Local processing is a hard boundary. External paths are ineligible.",
+          "tr": "Yerel işleme kesin bir sınırdır. Harici seçenekler elenir."
+        },
+        "evidenceRefs": [
+          "results"
+        ]
+      }
+    ],
+    "assumptionRefs": [
+      "educational-defaults",
+      "bounded-model"
+    ],
+    "evidenceRefs": [
+      "defaults",
+      "inputs",
+      "results"
+    ],
+    "config": {
+      "scenarioId": "privacy"
+    }
+  },
+  {
+    "schemaVersion": "0.1",
+    "id": "company",
+    "title": {
+      "en": "30-person company",
+      "tr": "30 kişilik şirket"
+    },
+    "guidingQuestion": {
+      "en": "Which deployment remains eligible for this workload and its constraints?",
+      "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
+    },
+    "description": {
+      "en": "Sensitive documents, 30 typical users and a 60-request peak challenge fixed capacity.",
+      "tr": "Hassas belgeler, 30 tipik kullanıcı ve 60 istek tepe yükü sabit kapasiteyi zorlar."
+    },
+    "concepts": [
+      "concept:deployment-choice",
+      "concept:capacity-planning",
+      "concept:ownership-cost",
+      "concept:concurrency",
+      "concept:kv-cache"
+    ],
+    "learningObjectives": [
+      {
+        "en": "Sensitive documents, 30 typical users and a 60-request peak challenge fixed capacity.",
+        "tr": "Hassas belgeler, 30 tipik kullanıcı ve 60 istek tepe yükü sabit kapasiteyi zorlar."
+      }
+    ],
+    "observations": [
+      {
+        "id": "tradeoffs",
+        "label": {
+          "en": "Constraints and trade-offs",
+          "tr": "Kısıtlar ve ödünleşimler"
+        },
+        "explanation": {
+          "en": "Sensitive documents, 30 typical users and a 60-request peak challenge fixed capacity.",
+          "tr": "Hassas belgeler, 30 tipik kullanıcı ve 60 istek tepe yükü sabit kapasiteyi zorlar."
+        },
+        "evidenceRefs": [
+          "results"
+        ]
+      }
+    ],
+    "assumptionRefs": [
+      "educational-defaults",
+      "bounded-model"
+    ],
+    "evidenceRefs": [
+      "defaults",
+      "inputs",
+      "results"
+    ],
+    "config": {
+      "scenarioId": "company"
+    }
+  },
+  {
+    "schemaVersion": "0.1",
+    "id": "batch",
+    "title": {
+      "en": "Bursty batch",
+      "tr": "Aralıklı toplu iş"
+    },
+    "guidingQuestion": {
+      "en": "Which deployment remains eligible for this workload and its constraints?",
+      "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
+    },
+    "description": {
+      "en": "Scheduled jobs may release rented capacity; startup time is not simulated.",
+      "tr": "Zamanlanmış işler kiralık kapasiteyi serbest bırakabilir; başlatma süresi simüle edilmez."
+    },
+    "concepts": [
+      "concept:deployment-choice",
+      "concept:capacity-planning",
+      "concept:ownership-cost",
+      "concept:concurrency",
+      "concept:kv-cache"
+    ],
+    "learningObjectives": [
+      {
+        "en": "Scheduled jobs may release rented capacity; startup time is not simulated.",
+        "tr": "Zamanlanmış işler kiralık kapasiteyi serbest bırakabilir; başlatma süresi simüle edilmez."
+      }
+    ],
+    "observations": [
+      {
+        "id": "tradeoffs",
+        "label": {
+          "en": "Constraints and trade-offs",
+          "tr": "Kısıtlar ve ödünleşimler"
+        },
+        "explanation": {
+          "en": "Scheduled jobs may release rented capacity; startup time is not simulated.",
+          "tr": "Zamanlanmış işler kiralık kapasiteyi serbest bırakabilir; başlatma süresi simüle edilmez."
+        },
+        "evidenceRefs": [
+          "results"
+        ]
+      }
+    ],
+    "assumptionRefs": [
+      "educational-defaults",
+      "bounded-model"
+    ],
+    "evidenceRefs": [
+      "defaults",
+      "inputs",
+      "results"
+    ],
+    "config": {
+      "scenarioId": "batch"
+    }
+  }
+]

@@ -38,3 +38,7 @@ All shipped prices, power, hardware configurations and capacity ceilings are **e
 - `tests`: deterministic domain tests. Browser verification record and screenshots are in `docs/qa.md`.
 
 The PR/manual CI workflow validates and uploads `dist`. The authoritative production workflow `deploy-swa-dcl-aserdargun-com.yml` validates and deploys prebuilt `dist` on `main`. `release.json` records the deployed commit and checksums for release correlation. Azure-compatible security headers and SPA fallback are in `public/staticwebapp.config.json`. Hybrid deployment, actual provider adapters, measured benchmarks, multi-node serving and upgrade economics are explicitly outside CORE.
+
+## ILS v0.1
+
+The canonical, content-addressed `@aserdargun/lab-core` and `lab-ui` archives in `vendor/` are independently installable. `lab.manifest.json` describes the seven authored scenarios; `src/ils/catalog.ts` adapts the existing ten-chapter guide. The shared shell exposes assumptions, evidence and semantic related learning without changing decision formulas. Query `scenario` and `lesson=deployment-101` accept authored routes only. Unsupported `ils` payloads are ignored; no exact cross-lab state transfer is claimed. Evidence distinguishes estimated defaults, user inputs and calculated outputs. Current editable inputs remain the source of calculation truth.

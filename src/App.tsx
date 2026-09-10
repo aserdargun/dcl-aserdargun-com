@@ -1,3 +1,6 @@
+import {LabShell, LabControlButton} from '@aserdargun/lab-ui';
+import '@aserdargun/lab-ui/styles.css';
+import {manifest,experiments,initialRoute} from './ils/catalog';
 import { useEffect, useState } from "react";
 import { ArrowRight, Download, RotateCcw, Info } from "lucide-react";
 import type {
@@ -66,13 +69,15 @@ function Workbench({
   const name = useCandidateName();
   const t = useT(),
     txt = useText();
-  const [scenarioId, setScenarioId] = useState("team70"),
-    [w, setWorkload] = useState({ ...scenarios[0].workload }),
-    [h, setH] = useState({ ...scenarios[0].constraints }),
-    [p, setP] = useState({ ...scenarios[0].preferences }),
+  const [route] = useState(() => initialRoute(location.search));
+  const preset = scenarios.find(s => s.id === route.scenario)!;
+  const [scenarioId, setScenarioId] = useState(route.scenario),
+    [w, setWorkload] = useState({ ...preset.workload }),
+    [h, setH] = useState({ ...preset.constraints }),
+    [p, setP] = useState({ ...preset.preferences }),
     [e, setE] = useState({ ...defaultEconomics }),
     [overrides, setOverrides] = useState<Record<string, CandidateOverride>>({}),
-    [mode, setMode] = useState<Mode>("compare"),
+    [mode, setMode] = useState<Mode>(route.lesson ? "learn" : "compare"),
     [selected, select] = useState("apple"),
     [modified, setModified] = useState(false),
     [showWorld, setShowWorld] = useState(true);
@@ -198,7 +203,7 @@ function Workbench({
             </p>
           </div>
           <div className="intro-actions">
-            <button
+            <LabControlButton action="reset" capabilities={manifest.capabilities} locale={locale}
               className="icon-button"
               aria-label={t(
                 "Reset entire laboratory",
@@ -213,7 +218,7 @@ function Workbench({
               }}
             >
               <RotateCcw />
-            </button>
+            </LabControlButton>
             <button onClick={exportReport}>
               <Download />
               {t("Export decision", "Kararı dışa aktar")}
@@ -406,6 +411,9 @@ function Workbench({
             )}
           </div>
         </div>
+        <LabShell manifest={manifest} experiment={experiments.find(e => e.id === scenarioId)!} locale={locale}>
+          <p>{t("Scenario context; results follow the current editable inputs.", "Senaryo bağlamı; sonuçlar mevcut düzenlenebilir girdileri izler.")}</p>
+        </LabShell>
         <footer>
           <span>
             DCL ·{" "}

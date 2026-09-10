@@ -1,0 +1,37 @@
+[
+  {
+    "id": "concept:deployment-choice",
+    "label": {
+      "en": "Deployment choice",
+      "tr": "Dağıtım seçimi"
+    }
+  },
+  {
+    "id": "concept:capacity-planning",
+    "label": {
+      "en": "Capacity planning",
+      "tr": "Kapasite planlama"
+    }
+  },
+  {
+    "id": "concept:ownership-cost",
+    "label": {
+      "en": "Ownership cost",
+      "tr": "Sahiplik maliyeti"
+    }
+  },
+  {
+    "id": "concept:concurrency",
+    "label": {
+      "en": "Concurrent requests",
+      "tr": "Eşzamanlı istekler"
+    }
+  },
+  {
+    "id": "concept:kv-cache",
+    "label": {
+      "en": "KV cache",
+      "tr": "KV önbellek"
+    }
+  }
+]
