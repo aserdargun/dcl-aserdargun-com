@@ -1,15 +1,20 @@
-import { useState } from "react";
 import { lessons } from "../lessons/lessons";
 import { Section, useT, useText, External } from "./ui";
 export function LearnPanel({
   experiment,
+  index,
+  setIndex,
+  answers,
+  setAnswers,
 }: {
+  index: number;
+  setIndex: (index: number) => void;
+  answers: Record<number, number>;
+  setAnswers: (answers: Record<number, number>) => void;
   experiment: (action: "context" | "usage" | "privacy") => void;
 }) {
   const t = useT(),
     txt = useText();
-  const [index, setIndex] = useState(0),
-    [answers, setAnswers] = useState<Record<number, number>>({});
   const lesson = lessons[index],
     answer = answers[index];
   return (

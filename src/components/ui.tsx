@@ -1,5 +1,6 @@
 import { createContext, useContext, useId, useState, useEffect } from "react";
 import type { ReactNode } from "react";
+import { validNumber } from "../core/input";
 import { ArrowUpRight } from "lucide-react";
 import type {
   Candidate,
@@ -21,7 +22,7 @@ export const fitText: Record<MemoryFit, Text> = {
   COMFORTABLE: ["Fits comfortably", "Rahatça sığıyor"],
   LIMITED: ["Limited headroom", "Sınırlı boşluk"],
   DOES_NOT_FIT: ["Does not fit", "Sığmıyor"],
-  OFFLOAD: ["Requires sharding / offload", "Bölme / aktarım gerekli"],
+  OFFLOAD: ["Requires host offload", "Ana belleğe aktarım gerekli"],
   PROVIDER_MANAGED: [
     "Provider-managed · unverified",
     "Sağlayıcı yönetiminde · doğrulanmadı",
@@ -59,13 +60,16 @@ export function Num({
   optional?: boolean;
 }) {
   const id = useId();
+  const t = useT();
   const [draft, setDraft] = useState(value === null ? "" : String(value));
-  useEffect(() => setDraft(value === null ? "" : String(value)), [value]);
+  const [badInput, setBadInput] = useState(false);
+  useEffect(() => {
+    setDraft(value === null ? "" : String(value));
+    setBadInput(false);
+  }, [value]);
   const invalid =
-    draft !== "" &&
-    (!Number.isFinite(Number(draft)) ||
-      Number(draft) < min ||
-      Number(draft) > max);
+    badInput ||
+    (!(optional && draft === "") && !validNumber(draft, min, max, step));
   return (
     <label className="field" htmlFor={id}>
       <span>
@@ -75,29 +79,36 @@ export function Num({
       <input
         id={id}
         type="number"
+        aria-label={label}
         min={min}
         max={max}
         step={step}
         value={draft}
         placeholder={optional ? "—" : undefined}
         aria-invalid={invalid}
+        aria-describedby={invalid ? `${id}-error` : undefined}
         onChange={(event) => {
           const s = event.target.value;
           setDraft(s);
+          setBadInput(event.target.validity.badInput);
+          if (event.target.validity.badInput) return;
           if (s === "" && optional) onChange(null);
-          else if (
-            s !== "" &&
-            Number.isFinite(Number(s)) &&
-            Number(s) >= min &&
-            Number(s) <= max
-          )
-            onChange(Number(s));
+          else if (validNumber(s, min, max, step)) onChange(Number(s));
         }}
         onBlur={() => {
           if (invalid || (draft === "" && !optional))
-            setDraft(String(value ?? min));
+            setDraft(value === null ? "" : String(value));
+          setBadInput(false);
         }}
       />
+      {invalid && (
+        <small id={`${id}-error`} className="field-error" role="status">
+          {t(
+            `Enter ${min}–${max} in steps of ${step}. The previous valid value is still used.`,
+            `${min}–${max} arasında, ${step} adımlı bir değer girin. Önceki geçerli değer kullanılmaya devam ediyor.`,
+          )}
+        </small>
+      )}
     </label>
   );
 }
@@ -118,6 +129,7 @@ export function Select<T extends string>({
       <span>{label}</span>
       <select
         id={id}
+        aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
       >

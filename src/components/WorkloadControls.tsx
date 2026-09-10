@@ -354,9 +354,14 @@ export function WorkloadControls({
             className="mobile-continue primary"
             onClick={(event) => {
               event.currentTarget.closest("details")?.removeAttribute("open");
-              document
-                .getElementById("workbench")
-                ?.scrollIntoView({ behavior: "smooth" });
+              const target = document.getElementById("workbench");
+              target?.focus({ preventScroll: true });
+              target?.scrollIntoView({
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                  .matches
+                  ? "instant"
+                  : "smooth",
+              });
             }}
           >
             {t("Compare deployment paths", "Dağıtım seçeneklerini karşılaştır")}{" "}

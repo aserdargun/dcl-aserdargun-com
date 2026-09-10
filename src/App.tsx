@@ -13,7 +13,7 @@ import { candidates, applyOverride } from "./data/candidates";
 import { defaultEconomics } from "./data/defaults";
 import { scenarios } from "./core/scenarios";
 import { estimateRuntimeMemory } from "./core/memory";
-import { evaluateCandidates } from "./core/decision";
+import { evaluateCandidates, recommendation } from "./core/decision";
 import {
   Language,
   External,
@@ -80,7 +80,12 @@ function Workbench({
     [mode, setMode] = useState<Mode>(route.lesson ? "learn" : "compare"),
     [selected, select] = useState("apple"),
     [modified, setModified] = useState(false),
-    [showWorld, setShowWorld] = useState(true);
+    [showWorld, setShowWorld] = useState(true),
+    [lessonIndex, setLessonIndex] = useState(0),
+    [answers, setAnswers] = useState<Record<number, number>>({}),
+    [localId, setLocalId] = useState("apple"),
+    [remoteId, setRemoteId] = useState("cloud"),
+    [scenarioRevision, setScenarioRevision] = useState(0);
   const setW = (next: Workload) => {
     if (next.privacy !== w.privacy)
       setP((current) => ({
@@ -94,16 +99,12 @@ function Workbench({
     applyOverride(c, overrides[c.id]),
   );
   const results = evaluateCandidates(profileCandidates, w, h, p, e);
-  const memory = estimateRuntimeMemory(w),
-    eligible = results.filter((r) => r.eligible),
-    winner = eligible[0],
-    tied =
-      winner &&
-      eligible.filter((r) => Math.abs(r.score - winner.score) < 0.01).length >
-        1;
+  const memory = estimateRuntimeMemory(w);
+  const { eligible, winner, tied } = recommendation(results, p);
   const detail = results.find((r) => r.candidate.id === selected)!;
   const switchScenario = (id: string) => {
     const s = scenarios.find((s) => s.id === id)!;
+    setScenarioRevision((revision) => revision + 1);
     setScenarioId(id);
     setWorkload({ ...s.workload });
     setH({ ...s.constraints });
@@ -161,12 +162,18 @@ function Workbench({
         {t("Skip to workbench", "Çalışma alanına geç")}
       </a>
       <header className="site-header">
-        <a className="brand" href="/" aria-label="DCL home">
+        <a
+          className="brand"
+          href="/"
+          aria-label={t("DCL home", "DCL ana sayfa")}
+        >
           <b>DCL</b>
           <span>Deployment Choice Laboratory</span>
         </a>
         <div className="header-links">
-          <External href="https://aserdargun.com/">AI Learning System</External>
+          <External href="https://aserdargun.com/">
+            {t("AI Learning System", "Yapay Zekâ Öğrenme Sistemi")}
+          </External>
           <div className="language">
             <button
               aria-label="English"
@@ -213,6 +220,11 @@ function Workbench({
                 switchScenario("team70");
                 setE({ ...defaultEconomics });
                 setOverrides({});
+                setAnswers({});
+                setLessonIndex(0);
+                setLocalId("apple");
+                setRemoteId("cloud");
+                setShowWorld(true);
                 select("apple");
                 setMode("compare");
               }}
@@ -259,6 +271,7 @@ function Workbench({
         </p>
         <div className="workbench-layout">
           <WorkloadControls
+            key={scenarioRevision}
             w={w}
             setW={setW}
             h={h}
@@ -267,7 +280,7 @@ function Workbench({
               setModified(true);
             }}
           />
-          <div className="workbench-main" id="workbench">
+          <div className="workbench-main" id="workbench" tabIndex={-1}>
             <div className="workbench-surface">
               <nav
                 className="mode-nav"
@@ -349,9 +362,19 @@ function Workbench({
                   w={w}
                   setW={setW}
                   e={e}
-                  setE={setE}
+                  localId={localId}
+                  setLocalId={setLocalId}
+                  remoteId={remoteId}
+                  setRemoteId={setRemoteId}
+                  setE={(next) => {
+                    setE(next);
+                    setModified(true);
+                  }}
                   overrides={overrides}
-                  setOverrides={setOverrides}
+                  setOverrides={(next) => {
+                    setOverrides(next);
+                    setModified(true);
+                  }}
                 />
               )}
               {mode === "memory" && (
@@ -372,7 +395,15 @@ function Workbench({
                   e={e}
                 />
               )}
-              {mode === "learn" && <LearnPanel experiment={experiment} />}
+              {mode === "learn" && (
+                <LearnPanel
+                  experiment={experiment}
+                  index={lessonIndex}
+                  setIndex={setLessonIndex}
+                  answers={answers}
+                  setAnswers={setAnswers}
+                />
+              )}
             </div>
             {mode === "compare" && (
               <>

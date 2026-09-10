@@ -1,5 +1,8 @@
 import type { Candidate, Cost, Economics, Workload } from "./types";
+export const MONTH_HOURS = 730;
 export const isLocal = (c: Candidate) => c.category.startsWith("LOCAL_");
+export const requiresAlwaysOn = (w: Workload) =>
+  w.availability === "always" || w.availability === "ha";
 export function usage(w: Workload) {
   const windowHours = w.hoursPerDay * w.daysPerMonth;
   const loadHours = windowHours * w.utilization;
@@ -37,13 +40,17 @@ export function calculateCost(c: Candidate, w: Workload, e: Economics): Cost {
   // Bursty/batch scheduled shutdown is an explicit idealization. Business/continuous retain the active window.
   const billableHours = api
     ? 0
-    : e.keepCloudWarm
-      ? 730
+    : e.keepCloudWarm || requiresAlwaysOn(w)
+      ? MONTH_HOURS
       : w.shape === "bursty" || w.shape === "batch"
         ? u.loadHours
         : u.windowHours;
   const idleHours = local
-    ? Math.max(0, (e.keepLocalOn ? 730 : u.windowHours) - u.loadHours)
+    ? Math.max(
+        0,
+        (e.keepLocalOn || requiresAlwaysOn(w) ? MONTH_HOURS : u.windowHours) -
+          u.loadHours,
+      )
     : 0;
   const power = c.power.normal * (1 - c.peakShare) + c.power.peak * c.peakShare;
   const electricity = local

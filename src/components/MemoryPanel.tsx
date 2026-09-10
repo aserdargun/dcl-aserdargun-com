@@ -216,8 +216,9 @@ export function MemoryPanel({
           {t("Inspect the memory equation", "Bellek denklemini incele")}
         </summary>
         <div className="equation">
-          {t("Weights", "Ağırlıklar")} = {w.parametersB} × 10⁹ × {w.bits} / 8 /
-          2³⁰ GiB
+          {w.weightOverrideGiB === null
+            ? `${t("Weights", "Ağırlıklar")} = ${w.parametersB} × 10⁹ × ${w.bits} / 8 / 2³⁰ = ${peak.weights.toFixed(3)} GiB`
+            : `${t("Weight override", "Ağırlık değişikliği")} = ${w.weightOverrideGiB} GiB · ${t("replaces the weight formula", "ağırlık formülünün yerine geçer")}`}
           <br />
           KV = 2 × {w.layers} × {w.kvHeads} × {w.headDim} × {w.kvBytes} ×{" "}
           {w.maxContext} × {w.peakConcurrency} / 2³⁰ GiB

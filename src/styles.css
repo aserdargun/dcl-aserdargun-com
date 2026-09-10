@@ -1902,3 +1902,31 @@ footer .external {
     list-style: inside;
   }
 }
+
+.field-error {
+  grid-column: 1 / -1;
+  color: #e4b69d;
+}
+[tabindex="-1"]:focus {
+  outline: none;
+}
+@media (max-width: 650px) {
+  .mode-nav {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .mode-nav button {
+    flex: 1 0 30%;
+  }
+  .intro-actions button,
+  .language button,
+  .mobile-candidates button {
+    min-height: 44px;
+  }
+  input,
+  select,
+  .field select,
+  .sub-controls select {
+    font-size: 16px;
+  }
+}
