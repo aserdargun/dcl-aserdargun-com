@@ -257,5 +257,15 @@
         }
       }
     ]
-  }
+  },
+  "relationships": [
+    {
+      "appId": "lcl",
+      "role": "local-evidence"
+    },
+    {
+      "appId": "cld",
+      "role": "cloud-evidence"
+    }
+  ]
 }

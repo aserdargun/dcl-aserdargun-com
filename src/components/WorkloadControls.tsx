@@ -44,7 +44,7 @@ export function WorkloadControls({
           <Select
             label={t("Model class", "Model sınıfı")}
             value={String(w.parametersB)}
-            options={["8", "32", "70", "405"].map((n) => [
+            options={["7", "8", "14", "32", "70", "405"].map((n) => [
               n,
               `${n}B ${t("class", "sınıfı")}`,
             ])}
@@ -53,7 +53,7 @@ export function WorkloadControls({
                 ...w,
                 parametersB: Number(v),
                 layers:
-                  v === "8" ? 32 : v === "32" ? 64 : v === "70" ? 80 : 126,
+                  v === "7" || v === "8" ? 32 : v === "14" ? 40 : v === "32" ? 64 : v === "70" ? 80 : 126,
                 kvHeads: 8,
                 headDim: 128,
                 weightOverrideGiB: null,
@@ -67,13 +67,14 @@ export function WorkloadControls({
               ["4", "Q4 · 4 bit"],
               ["8", "Q8 · 8 bit"],
               ["16", "BF16 / FP16"],
+              ["32", "FP32"],
             ]}
             onChange={(v) => update("bits", Number(v))}
           />
           <Select
             label={t("Typical context", "Tipik bağlam")}
             value={String(w.context)}
-            options={[2048, 4096, 8192, 16384, 32768, 65536, 131072].map(
+            options={[128, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072].map(
               (n) => [String(n), `${n / 1024}K`],
             )}
             onChange={(v) =>
@@ -87,7 +88,7 @@ export function WorkloadControls({
           <Select
             label={t("Maximum context", "Azami bağlam")}
             value={String(w.maxContext)}
-            options={[2048, 4096, 8192, 16384, 32768, 65536, 131072]
+            options={[128, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072]
               .filter((n) => n >= w.context)
               .map((n) => [String(n), `${n / 1024}K`])}
             onChange={(v) => update("maxContext", Number(v))}

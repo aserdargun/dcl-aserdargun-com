@@ -1,3 +1,7 @@
+import { readAdaptation, inferenceFromAdaptation, servingLink, servingContext } from "./ils/handoff";
+import { buildReturnLearningLink } from "@aserdargun/lab-core";
+import { learningGraph } from "./ils/graph";
+import "./ils/handoff.css";
 import {LabShell, LabControlButton} from '@aserdargun/lab-ui';
 import '@aserdargun/lab-ui/styles.css';
 import {manifest,experiments,initialRoute} from './ils/catalog';
@@ -69,6 +73,8 @@ function Workbench({
   const name = useCandidateName();
   const t = useT(),
     txt = useText();
+  const [incoming] = useState(() => readAdaptation(new URL(location.href)));
+  const [adaptationApplied, setAdaptationApplied] = useState(false);
   const [route] = useState(() => initialRoute(location.search));
   const preset = scenarios.find(s => s.id === route.scenario)!;
   const [scenarioId, setScenarioId] = useState(route.scenario),
@@ -194,6 +200,15 @@ function Workbench({
         </div>
       </header>
       <main>
+        {incoming && <section className="semantic-handoff" data-testid="adaptation-context">
+          <strong>{t("From ADP · training scenario", "ADP’den · eğitim senaryosu")}</strong>
+          <p>{incoming.payload.parameterClass.toUpperCase()} · {incoming.payload.adaptation.toUpperCase()} · {incoming.payload.precision.toUpperCase()} · {incoming.payload.sequenceLength} {t("tokens", "token")} · {incoming.payload.estimatedMemoryGiB} GiB {t("estimated training memory", "tahmini eğitim belleği")}</p>
+          <p>{t("DCL compares inference deployments. Training memory remains source information; it is excluded from DCL’s runtime-memory and cost calculations. The projection uses DCL’s illustrative GQA geometry (8 KV heads, 128 head dimension) and starts at one concurrent request. This does not prove that the training workload fits.", "DCL çıkarım dağıtımlarını karşılaştırır. Eğitim belleği kaynak bilgisi olarak kalır; DCL’nin çalışma belleği ve maliyet hesaplarına katılmaz. Dönüşüm DCL’nin örnek GQA geometrisini (8 KV başı, 128 baş boyutu) kullanır ve tek eşzamanlı istekle başlar. Eğitim iş yükünün sığdığını kanıtlamaz.")}</p>
+          <button data-testid="apply-adaptation" onClick={() => {setWorkload(inferenceFromAdaptation(incoming));setModified(true);setMode("memory");setAdaptationApplied(true);}}>{t("Create inference comparison", "Çıkarım karşılaştırması oluştur")}</button>
+          {adaptationApplied && <p role="status">{t("Inference starting profile applied. Current controls remain authoritative.", "Çıkarım başlangıç profili uygulandı. Güncel kontroller belirleyicidir.")}</p>}
+          <a href={buildReturnLearningLink(learningGraph,incoming,locale) ?? undefined}>{t("Return to ADP", "ADP’ye dön")}</a>
+        </section>}
+
         <div className="intro">
           <div>
             <h1>
@@ -442,6 +457,11 @@ function Workbench({
             )}
           </div>
         </div>
+        <section className="semantic-handoff">
+          <strong>{t("Deploy → Serve", "Dağıt → Sun")}</strong>
+          <p>{servingContext(w,scenarioId) ? t("Send model class, precision, typical context and average/peak concurrency. TFL uses synthetic memory and timing assumptions; the selected hardware and prices are not transferred.", "Model sınıfını, hassasiyeti, tipik bağlamı ve ortalama/tepe eşzamanlılığı gönderin. TFL sentetik bellek ve süre varsayımları kullanır; seçilen donanım ve fiyatlar aktarılmaz.") : t("Semantic transfer supports 7B / 14B profiles without a weight override. This selection opens the default TFL experiment without transferring settings.", "Anlamsal aktarım ağırlık ezmesi olmayan 7B / 14B profillerini destekler. Bu seçim ayarları aktarmadan varsayılan TFL deneyini açar.")}</p>
+          <a data-testid="dcl-to-tfl" href={servingLink(w,scenarioId,locale)}>{t("What happens under load? → TFL", "Yük altında ne olur? → TFL")}</a>
+        </section>
         <LabShell manifest={manifest} experiment={experiments.find(e => e.id === scenarioId)!} locale={locale}>
           <p>{t("Scenario context; results follow the current editable inputs.", "Senaryo bağlamı; sonuçlar mevcut düzenlenebilir girdileri izler.")}</p>
         </LabShell>
