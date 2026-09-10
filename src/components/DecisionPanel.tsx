@@ -5,7 +5,7 @@ import type {
   Preferences,
   Workload,
 } from "../core/types";
-import { normalizedWeights } from "../core/decision";
+import { normalizedWeights, recommendation } from "../core/decision";
 import { balanced } from "../data/defaults";
 import { freshness } from "../core/freshness";
 import { isLocal } from "../core/economics";
@@ -63,6 +63,13 @@ export function CandidateDetail({
           </ul>
         </div>
       )}
+      {r.reasons
+        .filter((reason) => reason.metric === "memory-unverified")
+        .map((reason) => (
+          <p className="warning" key={reason.metric}>
+            {txt(reason.explanation)}
+          </p>
+        ))}
       <div className="detail-metrics">
         <div>
           <span>{t("Memory", "Bellek")}</span>
@@ -135,7 +142,15 @@ export function CandidateDetail({
           {t("Last verified", "Son doğrulama")}:{" "}
           {c.evidence.verifiedAt ??
             t("Never — synthetic profile", "Yok — sentetik profil")}{" "}
-          · {t("Freshness", "Güncellik")}: {freshness(c.evidence, new Date())}
+          · {t("Freshness", "Güncellik")}:{" "}
+          {txt(
+            ({
+              CURRENT: ["CURRENT", "GÜNCEL"],
+              AGING: ["AGING", "ESKİMEKTE"],
+              STALE: ["STALE", "ESKİ"],
+              UNKNOWN: ["UNKNOWN", "BİLİNMİYOR"],
+            } as const)[freshness(c.evidence, new Date())],
+          )}
         </p>
         <p>
           {t(
@@ -149,7 +164,16 @@ export function CandidateDetail({
               <span key={name}>
                 {name}
                 <b>
-                  {c.runtimes[name as keyof typeof c.runtimes] ?? "UNKNOWN"}
+                  {txt(
+                    ({
+                      SUPPORTED: ["SUPPORTED", "DESTEKLENİYOR"],
+                      PARTIAL: ["PARTIAL", "KISMİ"],
+                      UNKNOWN: ["UNKNOWN", "BİLİNMİYOR"],
+                      UNSUPPORTED: ["UNSUPPORTED", "DESTEKLENMİYOR"],
+                    } as const)[
+                      c.runtimes[name as keyof typeof c.runtimes] ?? "UNKNOWN"
+                    ],
+                  )}
                 </b>
               </span>
             ),
@@ -245,13 +269,8 @@ export function DecisionPanel({
   const name = useCandidateName();
   const t = useT(),
     txt = useText();
-  const eligible = results.filter((r) => r.eligible),
-    winner = eligible[0],
-    weights = normalizedWeights(p),
-    tied =
-      winner &&
-      eligible.filter((r) => Math.abs(r.score - winner.score) < 0.01).length >
-        1;
+  const { eligible, winner, tied } = recommendation(results, p);
+  const weights = normalizedWeights(p);
   const names: Record<keyof Preferences, string> = {
     cost: t("Cost", "Maliyet"),
     privacy: t("Data control", "Veri kontrolü"),

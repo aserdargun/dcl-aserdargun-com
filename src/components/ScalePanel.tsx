@@ -1,5 +1,5 @@
 import type { Evaluation, Workload } from "../core/types";
-import { estimateRuntimeMemory } from "../core/memory";
+import { evaluateCapacity } from "../core/scale";
 import { Section, Select, Slider, useCandidateName, useT } from "./ui";
 import { isLocal } from "../core/economics";
 export function ScalePanel({
@@ -67,19 +67,11 @@ export function ScalePanel({
             <h3>{name(r.candidate)}</h3>
             <div className="capacity-years">
               {multipliers.map((factor, i) => {
-                const peak = Math.ceil(w.peakConcurrency * factor);
-                const demand = estimateRuntimeMemory({
-                  ...w,
-                  peakConcurrency: peak,
-                });
-                const ratio = Math.max(
-                  peak / r.candidate.maxConcurrency,
-                  r.candidate.memory.kind === "provider"
-                    ? 0
-                    : demand.total / r.usableMemory,
-                );
-                const state =
-                  ratio > 1 ? "limit" : ratio > 0.85 ? "pressure" : "ok";
+                const {
+                  peak,
+                  memory: demand,
+                  state,
+                } = evaluateCapacity(r.candidate, w, factor);
                 return (
                   <div key={i} className={state}>
                     <b>
@@ -90,6 +82,16 @@ export function ScalePanel({
                           : t("OK*", "UYGUN*")}
                     </b>
                     <small>
+                      {w.maxContext / 1024}K / {r.candidate.maxContext / 1024}K{" "}
+                      {t("context", "bağlam")}
+                    </small>
+                    {r.candidate.memory.kind === "provider" && (
+                      <small>
+                        {w.parametersB}B / {r.candidate.maxParametersB}B{" "}
+                        {t("model class", "model sınıfı")}
+                      </small>
+                    )}
+                    <small>
                       {r.candidate.memory.kind === "provider"
                         ? `${peak} / ${r.candidate.maxConcurrency} ${t("quota", "kota")}`
                         : `${demand.total.toFixed(0)} / ${r.usableMemory} GiB`}
@@ -98,6 +100,14 @@ export function ScalePanel({
                 );
               })}
             </div>
+            {!r.eligible && (
+              <p className="warning">
+                {t(
+                  "Ineligible under current constraints. Capacity alone cannot establish eligibility.",
+                  "Mevcut kısıtlarla uygun değil. Kapasite tek başına uygunluk sağlamaz.",
+                )}
+              </p>
+            )}
             <p>
               {isLocal(r.candidate)
                 ? t(

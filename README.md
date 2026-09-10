@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:5300. Build with `npm run build`; serve production output with `npm run preview` on port 4300. `npm run validate` runs TypeScript, deterministic tests and the production build. Core calculations need no backend, account, API key or external network. Fonts are bundled locally. Language choice persists locally; workload state resets on reload. Export a JSON decision report to preserve exact inputs, assumptions and calculations.
+Open http://127.0.0.1:5300. Build with `npm run build`; serve production output with `npm run preview` on port 4300. `npm run validate` runs TypeScript, deterministic tests and the production build. Core calculations need no backend, account, API key or external network. Fonts are bundled locally. Language choice persists locally; workload state resets on reload. Lesson checkpoints and cost comparison choices survive mode changes within the session; the laboratory reset clears them. Export a JSON decision report to preserve exact inputs, assumptions and calculations.
 
 ## What works
 
@@ -35,6 +35,6 @@ All shipped prices, power, hardware configurations and capacity ceilings are **e
 - `src/components`: focused workbench panels and bilingual controls.
 - `src/visualization`: responsive, interactive isometric SVG architecture. Code-native geometry has no WebGL requirement.
 - `src/lessons`: ten bilingual lessons and explanation checkpoints.
-- `tests`: deterministic domain tests. Browser verification record and screenshots are in `docs/qa.md`.
+- `tests`: deterministic domain tests. The initial browser verification record is in `docs/qa.md`.
 
 The PR/manual CI workflow validates and uploads `dist`. The authoritative production workflow `deploy-swa-dcl-aserdargun-com.yml` validates and deploys prebuilt `dist` on `main`. `release.json` records the deployed commit and checksums for release correlation. Azure-compatible security headers and SPA fallback are in `public/staticwebapp.config.json`. Hybrid deployment, actual provider adapters, measured benchmarks, multi-node serving and upgrade economics are explicitly outside CORE.

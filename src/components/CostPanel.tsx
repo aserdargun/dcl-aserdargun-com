@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type {
   CandidateOverride,
   Economics,
@@ -24,7 +23,15 @@ export function CostPanel({
   setE,
   overrides,
   setOverrides,
+  localId,
+  setLocalId,
+  remoteId,
+  setRemoteId,
 }: {
+  localId: string;
+  setLocalId: (id: string) => void;
+  remoteId: string;
+  setRemoteId: (id: string) => void;
   results: Evaluation[];
   w: Workload;
   setW: (w: Workload) => void;
@@ -35,8 +42,6 @@ export function CostPanel({
 }) {
   const name = useCandidateName();
   const t = useT();
-  const [localId, setLocalId] = useState("apple"),
-    [remoteId, setRemoteId] = useState("cloud");
   const a = results.find((r) => r.candidate.id === localId)!,
     b = results.find((r) => r.candidate.id === remoteId)!;
   const cross = calculateBreakEven(a.cost, b.cost, w.horizon);
@@ -62,6 +67,12 @@ export function CostPanel({
           "HESAPLANAN SONUÇ · EĞİTİM FİYATLARI",
         )}
       </div>
+      <p className="muted">
+        {t(
+          "Always-on and high-availability requirements keep provisioned capacity on for 730 hours/month, regardless of the warm/idle switches. Demand uses the configured active days.",
+          "7/24 ve yüksek erişilebilirlik gereksinimleri, açık/boşta anahtarlarından bağımsız olarak ayrılmış kapasiteyi ayda 730 saat açık tutar. Talep, yapılandırılan aktif günleri kullanır.",
+        )}
+      </p>
       <div className="cost-controls">
         <Select
           label={t("Local baseline", "Yerel karşılaştırma")}
@@ -120,7 +131,7 @@ export function CostPanel({
           ))}
           {[0, 0.25, 0.5, 0.75, 1].map((v) => (
             <text key={v} x={65 + 685 * v} y="265" textAnchor="middle">
-              {(w.horizon * v).toFixed(0)}
+              {Number((w.horizon * v).toFixed(2))}
             </text>
           ))}
           <text x="65" y="15">
@@ -366,7 +377,7 @@ export function CostPanel({
                   value={e.fx}
                   min={0.0001}
                   max={1e6}
-                  step={0.01}
+                  step={0.0001}
                   onChange={(n) => setE({ ...e, fx: n ?? 1 })}
                 />
                 <p className="warning">
@@ -418,6 +429,7 @@ export function CostPanel({
                   <Num
                     label={t("Purchase price", "Satın alma fiyatı")}
                     value={c.purchaseCost}
+                    step={0.01}
                     onChange={(n) => set("purchaseCost", n)}
                   />
                 ) : c.category === "TOKEN_API" ? (

@@ -27,6 +27,19 @@ export function evaluateHardConstraints(
   fit: MemoryFit,
 ): Reason[] {
   const out: Reason[] = [];
+  if (
+    w.hoursPerDay === 0 &&
+    w.requestsPerDay > 0 &&
+    w.daysPerMonth > 0 &&
+    w.utilization > 0
+  )
+    out.push(
+      fail(
+        "workload-schedule",
+        "Nonzero request demand needs an active processing window. Set active hours above zero or remove the demand.",
+        "Sıfırdan büyük istek talebi aktif çalışma süresi gerektirir. Aktif saatleri artırın veya talebi sıfırlayın.",
+      ),
+    );
   if (w.inputTokens + w.outputTokens > w.maxContext)
     out.push(
       fail(
@@ -43,12 +56,12 @@ export function evaluateHardConstraints(
         "Tepe değerleri tipik eşzamanlılık ve bağlamı kapsamalıdır.",
       ),
     );
-  if (h.mustFit && (fit === "DOES_NOT_FIT" || fit === "OFFLOAD"))
+  if (fit === "DOES_NOT_FIT" || (h.mustFit && fit === "OFFLOAD"))
     out.push(
       fail(
         "memory",
-        "Peak memory exceeds the usable pool. Offload or a new configuration requires separate validation.",
-        "Tepe bellek ihtiyacı kullanılabilir havuzu aşıyor. Aktarım veya yeni yapılandırma ayrıca doğrulanmalı.",
+        "Peak memory exceeds permitted capacity. Offload can only be considered when a configured host pool covers the deficit; otherwise a new configuration is required.",
+        "Tepe bellek ihtiyacı izin verilen kapasiteyi aşıyor. Aktarım ancak yapılandırılmış ana bellek havuzu açığı karşılıyorsa değerlendirilebilir; aksi halde yeni yapılandırma gerekir.",
       ),
     );
   if (w.privacy === "local" && !isLocal(c))
@@ -142,6 +155,21 @@ export function evaluateHardConstraints(
     );
   return out;
 }
+/** Keep all recommendation surfaces consistent, including a sole eligible path with no preferences. */
+export function recommendation(results: Evaluation[], p: Preferences) {
+  const eligible = results.filter((r) => r.eligible);
+  const first = eligible[0];
+  const unweighted = Object.values(normalizedWeights(p)).every((v) => v === 0);
+  const tied =
+    !!first &&
+    eligible.filter((r) => Math.abs(r.score - first.score) < 0.01).length > 1;
+  return {
+    eligible,
+    winner: first,
+    tied: tied || (!!first && unweighted),
+    unweighted,
+  };
+}
 export function normalizedWeights(p: Preferences): Preferences {
   const sum = Object.values(p).reduce((a, b) => a + Math.max(0, b), 0);
   return Object.fromEntries(
@@ -206,6 +234,19 @@ export function explainDecision(
         "DÜŞÜK KANIT: fiyat, güç, kapasite sınırları ve tercih puanları eğitim varsayımlarıdır.",
       ],
     },
+    ...(fit === "DOES_NOT_FIT" || fit === "OFFLOAD"
+      ? [
+          {
+            type: "evidence" as const,
+            metric: "memory-unverified",
+            impact: "unknown" as const,
+            explanation: [
+              "This configuration does not fit accelerator memory. Relaxing the memory constraint permits exploration only; it does not establish a runnable deployment.",
+              "Bu yapılandırma hızlandırıcı belleğine sığmıyor. Bellek kısıtını kaldırmak yalnızca incelemeye izin verir; çalışabilir bir dağıtımı doğrulamaz.",
+            ] as const,
+          },
+        ]
+      : []),
     ...(fit === "PROVIDER_MANAGED"
       ? [
           {

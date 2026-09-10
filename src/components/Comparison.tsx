@@ -88,7 +88,10 @@ export function Comparison({
             key={r.candidate.id}
             className={selected === r.candidate.id ? "selected" : ""}
           >
-            <button onClick={() => select(r.candidate.id)}>
+            <button
+              aria-pressed={selected === r.candidate.id}
+              onClick={() => select(r.candidate.id)}
+            >
               {name(r.candidate)}
               <ArrowRight />
             </button>
