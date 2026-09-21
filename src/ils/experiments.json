@@ -296,8 +296,8 @@
       "tr": "Bu iş yükü ve kısıtları için hangi dağıtım uygun kalır?"
     },
     "description": {
-      "en": "Sensitive documents, 30 typical users and a 60-request peak challenge fixed capacity.",
-      "tr": "Hassas belgeler, 30 tipik kullanıcı ve 60 istek tepe yükü sabit kapasiteyi zorlar."
+      "en": "Sensitive documents, 30 typical concurrent requests and a 60-request peak challenge fixed capacity. User count alone does not determine concurrency.",
+      "tr": "Hassas belgeler, tipik 30 eşzamanlı istek ve 60 istek tepe yükü sabit kapasiteyi zorlar. Kullanıcı sayısı tek başına eşzamanlılığı belirlemez."
     },
     "concepts": [
       "concept:deployment-choice",
@@ -308,8 +308,8 @@
     ],
     "learningObjectives": [
       {
-        "en": "Sensitive documents, 30 typical users and a 60-request peak challenge fixed capacity.",
-        "tr": "Hassas belgeler, 30 tipik kullanıcı ve 60 istek tepe yükü sabit kapasiteyi zorlar."
+        "en": "Sensitive documents, 30 typical concurrent requests and a 60-request peak challenge fixed capacity. User count alone does not determine concurrency.",
+        "tr": "Hassas belgeler, tipik 30 eşzamanlı istek ve 60 istek tepe yükü sabit kapasiteyi zorlar. Kullanıcı sayısı tek başına eşzamanlılığı belirlemez."
       }
     ],
     "observations": [
@@ -320,8 +320,8 @@
           "tr": "Kısıtlar ve ödünleşimler"
         },
         "explanation": {
-          "en": "Sensitive documents, 30 typical users and a 60-request peak challenge fixed capacity.",
-          "tr": "Hassas belgeler, 30 tipik kullanıcı ve 60 istek tepe yükü sabit kapasiteyi zorlar."
+          "en": "Sensitive documents, 30 typical concurrent requests and a 60-request peak challenge fixed capacity. User count alone does not determine concurrency.",
+          "tr": "Hassas belgeler, tipik 30 eşzamanlı istek ve 60 istek tepe yükü sabit kapasiteyi zorlar. Kullanıcı sayısı tek başına eşzamanlılığı belirlemez."
         },
         "evidenceRefs": [
           "results"

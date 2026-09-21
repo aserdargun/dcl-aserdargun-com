@@ -52,7 +52,7 @@ export function ScalePanel({
               {t("Year", "Yıl")} {i + 1}
             </span>
             <strong>
-              {Math.ceil(w.concurrency * factor)} {t("users", "kullanıcı")}
+              {Math.ceil(w.concurrency * factor)} {t("concurrent requests", "eşzamanlı istek")}
             </strong>
             <small>
               {Math.ceil(w.peakConcurrency * factor)}{" "}

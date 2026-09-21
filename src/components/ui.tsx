@@ -1,5 +1,6 @@
 import { createContext, useContext, useId, useState, useEffect } from "react";
 import type { ReactNode } from "react";
+import { localizedPortfolioHome } from "../ils/portfolio";
 import { validNumber } from "../core/input";
 import { ArrowUpRight } from "lucide-react";
 import type {
@@ -238,9 +239,10 @@ export function External({
   children: ReactNode;
 }) {
   const t = useT();
+  const locale = useContext(Language);
   return (
     <a
-      href={href}
+      href={localizedPortfolioHome(href, locale)}
       target="_blank"
       rel="noopener noreferrer"
       className="external"

@@ -110,7 +110,7 @@ export const lessons: Lesson[] = [
     ],
     question: [
       "A very cheap API violates local-only. What happens?",
-      "Çok ucuz API yerel-only kuralını ihlal ediyor. Ne olur?",
+      "Çok ucuz bir API, yalnızca yerel işleme kuralını ihlal ediyor. Ne olur?",
     ],
     options: [
       ["It stays recommended because it is cheap", "Ucuz olduğu için önerilir"],
@@ -160,8 +160,8 @@ export const lessons: Lesson[] = [
     ],
     answer: 0,
     feedback: [
-      "Break-even exists only when the computed curves actually cross within the horizon.",
-      "Başa baş yalnızca hesaplanan eğriler dönem içinde gerçekten kesişirse vardır.",
+      "DCL reports only a unique, positive crossing within the selected horizon. Equal cost at every point is not a unique break-even.",
+      "DCL yalnızca seçili dönemdeki tekil, pozitif kesişimi raporlar. Her noktada eşit maliyet, tek bir başa baş noktası değildir.",
     ],
   },
   {

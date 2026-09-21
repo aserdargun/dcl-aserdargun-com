@@ -105,11 +105,20 @@ export function LearnPanel({
         <h3>{t("Continue the learning path", "Öğrenme yoluna devam edin")}</h3>
         <p>
           {t(
-            "LCL + CLD → DCL → TFL → GEX. Hardware knowledge and cloud economics become a deployment choice, then a serving question. Agent workloads from ARL can use the same decision inputs. These are independent learning applications; no shared telemetry or automatic parameter handoff is implied.",
-            "LCL + CLD → DCL → TFL → GEX. Donanım bilgisi ve bulut ekonomisi önce dağıtım seçimine, sonra servis sorusuna dönüşür. ARL ajan iş yükleri aynı karar girdilerini kullanabilir. Bunlar bağımsız öğrenme uygulamalarıdır; ortak telemetri veya otomatik parametre aktarımı varsayılmaz.",
+            "DCL is the shared deployment laboratory of LCL and CLD in the AI Learning System. Compare local hardware and cloud economics here, explore serving in TFL and execution in GEX, or study agent workloads in ARL. CLD currently provides Turkish content.",
+            "DCL, Yapay Zekâ Öğrenme Sistemi içinde LCL ve CLD’nin ortak dağıtım laboratuvarıdır. Yerel donanım ve bulut ekonomisini burada karşılaştırın; TFL’de servis davranışını, GEX’te yürütmeyi, ARL’de ajan iş yüklerini inceleyin. CLD içeriği şu anda Türkçedir.",
+          )}
+        </p>
+        <p>
+          {t(
+            "ADP can supply an educational training profile; applying it here explicitly creates an inference starting point and excludes training memory. The Deploy → Serve link transfers supported 7B/14B workload metadata to TFL. Other links open independent learning pages; no live telemetry, hardware or price synchronization is provided.",
+            "ADP eğitim amaçlı bir model eğitimi profili gönderebilir; burada uygulamak açıkça bir çıkarım başlangıç profili oluşturur ve eğitim belleğini dışarıda bırakır. Dağıt → Sun bağlantısı desteklenen 7B/14B iş yükü bilgilerini TFL’ye aktarır. Diğer bağlantılar bağımsız öğrenme sayfalarını açar; canlı telemetri, donanım veya fiyat eşitlemesi yapılmaz.",
           )}
         </p>
         <div className="links-row">
+          <External href="https://adp.aserdargun.com/">
+            ADP · {t("Model adaptation", "Model uyarlama")}
+          </External>
           <External href="https://lcl.aserdargun.com/">
             LCL · {t("Local hardware", "Yerel donanım")}
           </External>

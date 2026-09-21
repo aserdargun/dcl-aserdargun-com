@@ -1,10 +1,15 @@
-import { readAdaptation, inferenceFromAdaptation, servingLink, servingContext } from "./ils/handoff";
+import {
+  readAdaptation,
+  inferenceFromAdaptation,
+  servingLink,
+  servingContext,
+} from "./ils/handoff";
 import { buildReturnLearningLink } from "@aserdargun/lab-core";
 import { learningGraph } from "./ils/graph";
 import "./ils/handoff.css";
-import {LabShell, LabControlButton} from '@aserdargun/lab-ui';
-import '@aserdargun/lab-ui/styles.css';
-import {manifest,experiments,initialRoute} from './ils/catalog';
+import { LabShell, LabControlButton } from "@aserdargun/lab-ui";
+import "@aserdargun/lab-ui/styles.css";
+import { manifest, experiments, initialRoute } from "./ils/catalog";
 import { useEffect, useState } from "react";
 import { ArrowRight, Download, RotateCcw, Info } from "lucide-react";
 import type {
@@ -48,6 +53,18 @@ export default function App() {
   const [locale, setLocale] = useState<Locale>(initialLocale);
   useEffect(() => {
     document.documentElement.lang = locale;
+    document.title =
+      locale === "tr"
+        ? "DCL — Dağıtım Karar Laboratuvarı"
+        : "DCL — Deployment Choice Laboratory";
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        locale === "tr"
+          ? "LCL ve CLD’nin ortak laboratuvarı. Altı dağıtım seçeneğini iş yükü, bellek, gizlilik ve maliyet varsayımlarıyla karşılaştırın. Fiyat ve performans verileri ölçülmüş değildir."
+          : "The shared laboratory of LCL and CLD. Compare six deployment paths using workload, memory, privacy and cost assumptions. No live prices or measured performance.",
+      );
     try {
       localStorage.setItem("dcl-locale", locale);
     } catch {
@@ -73,10 +90,12 @@ function Workbench({
   const name = useCandidateName();
   const t = useT(),
     txt = useText();
-  const [incoming] = useState(() => readAdaptation(new URL(location.href)));
+  const [incoming, setIncoming] = useState(() =>
+    readAdaptation(new URL(location.href)),
+  );
   const [adaptationApplied, setAdaptationApplied] = useState(false);
   const [route] = useState(() => initialRoute(location.search));
-  const preset = scenarios.find(s => s.id === route.scenario)!;
+  const preset = scenarios.find((s) => s.id === route.scenario)!;
   const [scenarioId, setScenarioId] = useState(route.scenario),
     [w, setWorkload] = useState({ ...preset.workload }),
     [h, setH] = useState({ ...preset.constraints }),
@@ -112,6 +131,7 @@ function Workbench({
     const s = scenarios.find((s) => s.id === id)!;
     setScenarioRevision((revision) => revision + 1);
     setScenarioId(id);
+    setAdaptationApplied(false);
     setWorkload({ ...s.workload });
     setH({ ...s.constraints });
     setP({ ...s.preferences });
@@ -174,7 +194,9 @@ function Workbench({
           aria-label={t("DCL home", "DCL ana sayfa")}
         >
           <b>DCL</b>
-          <span>Deployment Choice Laboratory</span>
+          <span>
+            {t("Deployment Choice Laboratory", "Dağıtım Karar Laboratuvarı")}
+          </span>
         </a>
         <div className="header-links">
           <External href="https://aserdargun.com/">
@@ -200,17 +222,79 @@ function Workbench({
         </div>
       </header>
       <main>
-        {incoming && <section className="semantic-handoff" data-testid="adaptation-context">
-          <strong>{t("From ADP · training scenario", "ADP’den · eğitim senaryosu")}</strong>
-          <p>{incoming.payload.parameterClass.toUpperCase()} · {incoming.payload.adaptation.toUpperCase()} · {incoming.payload.precision.toUpperCase()} · {incoming.payload.sequenceLength} {t("tokens", "token")} · {incoming.payload.estimatedMemoryGiB} GiB {t("estimated training memory", "tahmini eğitim belleği")}</p>
-          <p>{t("DCL compares inference deployments. Training memory remains source information; it is excluded from DCL’s runtime-memory and cost calculations. The projection uses DCL’s illustrative GQA geometry (8 KV heads, 128 head dimension) and starts at one concurrent request. This does not prove that the training workload fits.", "DCL çıkarım dağıtımlarını karşılaştırır. Eğitim belleği kaynak bilgisi olarak kalır; DCL’nin çalışma belleği ve maliyet hesaplarına katılmaz. Dönüşüm DCL’nin örnek GQA geometrisini (8 KV başı, 128 baş boyutu) kullanır ve tek eşzamanlı istekle başlar. Eğitim iş yükünün sığdığını kanıtlamaz.")}</p>
-          <button data-testid="apply-adaptation" onClick={() => {setWorkload(inferenceFromAdaptation(incoming));setModified(true);setMode("memory");setAdaptationApplied(true);}}>{t("Create inference comparison", "Çıkarım karşılaştırması oluştur")}</button>
-          {adaptationApplied && <p role="status">{t("Inference starting profile applied. Current controls remain authoritative.", "Çıkarım başlangıç profili uygulandı. Güncel kontroller belirleyicidir.")}</p>}
-          <a href={buildReturnLearningLink(learningGraph,incoming,locale) ?? undefined}>{t("Return to ADP", "ADP’ye dön")}</a>
-        </section>}
+        {incoming && (
+          <section
+            className="semantic-handoff"
+            data-testid="adaptation-context"
+          >
+            <strong>
+              {t("From ADP · training scenario", "ADP’den · eğitim senaryosu")}
+            </strong>
+            <p>
+              {incoming.payload.parameterClass.toUpperCase()} ·{" "}
+              {incoming.payload.adaptation.toUpperCase()} ·{" "}
+              {incoming.payload.precision.toUpperCase()} ·{" "}
+              {incoming.payload.sequenceLength} {t("tokens", "token")} ·{" "}
+              {incoming.payload.estimatedMemoryGiB} GiB{" "}
+              {t("estimated training memory", "tahmini eğitim belleği")}
+            </p>
+            <p>
+              {t(
+                "DCL compares inference deployments. Training memory remains source information; it is excluded from DCL’s runtime-memory and cost calculations. The projection uses DCL’s illustrative GQA geometry (8 KV heads, 128 head dimension) and starts at one concurrent request. This does not prove that the training workload fits.",
+                "DCL çıkarım dağıtımlarını karşılaştırır. Eğitim belleği kaynak bilgisi olarak kalır; DCL’nin çalışma belleği ve maliyet hesaplarına katılmaz. Dönüşüm DCL’nin örnek GQA geometrisini (8 KV başı, 128 baş boyutu) kullanır ve tek eşzamanlı istekle başlar. Eğitim iş yükünün sığdığını kanıtlamaz.",
+              )}
+            </p>
+            <button
+              data-testid="apply-adaptation"
+              onClick={() => {
+                setWorkload(inferenceFromAdaptation(incoming));
+                setModified(true);
+                setMode("memory");
+                setAdaptationApplied(true);
+              }}
+            >
+              {t(
+                "Create inference comparison",
+                "Çıkarım karşılaştırması oluştur",
+              )}
+            </button>
+            {adaptationApplied && (
+              <p role="status">
+                {t(
+                  "Inference starting profile applied. Current controls remain authoritative.",
+                  "Çıkarım başlangıç profili uygulandı. Güncel kontroller belirleyicidir.",
+                )}
+              </p>
+            )}
+            <a
+              href={
+                buildReturnLearningLink(learningGraph, incoming, locale) ??
+                undefined
+              }
+            >
+              {t("Return to ADP", "ADP’ye dön")}
+            </a>
+          </section>
+        )}
 
         <div className="intro">
           <div>
+            <nav
+              className="portfolio-context"
+              aria-label={t(
+                "Learning system context",
+                "Öğrenme sistemindeki yeri",
+              )}
+            >
+              <External href="https://aserdargun.com/">
+                {t("AI Learning System", "Yapay Zekâ Öğrenme Sistemi")}
+              </External>
+              <span> / {t("Deployment", "Dağıtım")} · </span>
+              <External href="https://lcl.aserdargun.com/">LCL</External>
+              <span> + </span>
+              <External href="https://cld.aserdargun.com/">CLD</External>
+              <span>{t("shared laboratory", "ortak laboratuvarı")}</span>
+            </nav>
             <h1>
               {t(
                 "Choose where the workload should run.",
@@ -225,7 +309,10 @@ function Workbench({
             </p>
           </div>
           <div className="intro-actions">
-            <LabControlButton action="reset" capabilities={manifest.capabilities} locale={locale}
+            <LabControlButton
+              action="reset"
+              capabilities={manifest.capabilities}
+              locale={locale}
               className="icon-button"
               aria-label={t(
                 "Reset entire laboratory",
@@ -233,6 +320,12 @@ function Workbench({
               )}
               onClick={() => {
                 switchScenario("team70");
+                setIncoming(null);
+                const url = new URL(location.href);
+                url.searchParams.delete("ils");
+                url.searchParams.delete("scenario");
+                url.searchParams.delete("lesson");
+                history.replaceState(null, "", url);
                 setE({ ...defaultEconomics });
                 setOverrides({});
                 setAnswers({});
@@ -246,7 +339,10 @@ function Workbench({
             >
               <RotateCcw />
             </LabControlButton>
-            <button onClick={exportReport}>
+            <button
+              onClick={exportReport}
+              aria-label={t("Export decision", "Kararı dışa aktar")}
+            >
               <Download />
               {t("Export decision", "Kararı dışa aktar")}
             </button>
@@ -459,11 +555,32 @@ function Workbench({
         </div>
         <section className="semantic-handoff">
           <strong>{t("Deploy → Serve", "Dağıt → Sun")}</strong>
-          <p>{servingContext(w,scenarioId) ? t("Send model class, precision, typical context and average/peak concurrency. TFL uses synthetic memory and timing assumptions; the selected hardware and prices are not transferred.", "Model sınıfını, hassasiyeti, tipik bağlamı ve ortalama/tepe eşzamanlılığı gönderin. TFL sentetik bellek ve süre varsayımları kullanır; seçilen donanım ve fiyatlar aktarılmaz.") : t("Semantic transfer supports 7B / 14B profiles without a weight override. This selection opens the default TFL experiment without transferring settings.", "Anlamsal aktarım ağırlık ezmesi olmayan 7B / 14B profillerini destekler. Bu seçim ayarları aktarmadan varsayılan TFL deneyini açar.")}</p>
-          <a data-testid="dcl-to-tfl" href={servingLink(w,scenarioId,locale)}>{t("What happens under load? → TFL", "Yük altında ne olur? → TFL")}</a>
+          <p>
+            {servingContext(w, scenarioId)
+              ? t(
+                  "Send model class, precision, typical context and average/peak concurrency. TFL uses synthetic memory and timing assumptions; the selected hardware and prices are not transferred.",
+                  "Model sınıfını, hassasiyeti, tipik bağlamı ve ortalama/tepe eşzamanlılığı gönderin. TFL sentetik bellek ve süre varsayımları kullanır; seçilen donanım ve fiyatlar aktarılmaz.",
+                )
+              : t(
+                  "Semantic transfer supports 7B / 14B profiles without a weight override. This selection opens the default TFL experiment without transferring settings.",
+                  "Anlamsal aktarım ağırlık belleği elle değiştirilmemiş 7B / 14B profillerini destekler. Bu seçim ayarları aktarmadan varsayılan TFL deneyini açar.",
+                )}
+          </p>
+          <a data-testid="dcl-to-tfl" href={servingLink(w, scenarioId, locale)}>
+            {t("What happens under load? → TFL", "Yük altında ne olur? → TFL")}
+          </a>
         </section>
-        <LabShell manifest={manifest} experiment={experiments.find(e => e.id === scenarioId)!} locale={locale}>
-          <p>{t("Scenario context; results follow the current editable inputs.", "Senaryo bağlamı; sonuçlar mevcut düzenlenebilir girdileri izler.")}</p>
+        <LabShell
+          manifest={manifest}
+          experiment={experiments.find((e) => e.id === scenarioId)!}
+          locale={locale}
+        >
+          <p>
+            {t(
+              "Scenario context; results follow the current editable inputs.",
+              "Senaryo bağlamı; sonuçlar mevcut düzenlenebilir girdileri izler.",
+            )}
+          </p>
         </LabShell>
         <footer>
           <span>

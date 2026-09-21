@@ -1,7 +1,8 @@
 # DCL production deployment
 
 - Public repository: https://github.com/aserdargun/dcl-aserdargun-com
-- Production: https://happy-rock-053a30403.6.azurestaticapps.net/
+- Canonical public address: https://dcl.aserdargun.com/
+- Azure generated host: https://happy-rock-053a30403.6.azurestaticapps.net/
 - Branch: `main`
 - Azure subscription: `aserdargun subscription 3`
 - Region / tier: West Europe / Free
@@ -14,6 +15,6 @@ Production validates locked dependencies, TypeScript, domain tests, Vite build a
 
 `/release.json` exposes the intended Git commit, build timestamp and SHA-256 hashes for the publicly served HTML, JavaScript, CSS and favicon. The separate `deploymentConfigSha256` field verifies the Azure configuration before upload; Azure consumes that file instead of serving it publicly. Verify that its commit equals the successful deployment run's SHA and the remote `main` commit. The generated host, Azure Ready state and source branch, representative assets, security headers, and desktop/mobile interactions must all agree before declaring a release complete.
 
-The resource was provisioned without Azure source integration to avoid a competing generated workflow. No custom domain or DNS change is included in this release. `dcl.aserdargun.com` remains the intended future custom domain.
+The resource was provisioned without Azure source integration to avoid a competing generated workflow. The canonical custom domain is `dcl.aserdargun.com`; normal HTTPS returned 200 during the 2026-09-21 content review. This availability check is not evidence that the current local changes have been deployed. Recheck domain/TLS, Azure state and release hashes for every publication.
 
 Historical local CORE QA lives in `qa.md`; it records the pre-publication stage and should not be mistaken for current deployment status. All application prices/capacities remain educational assumptions after publication.

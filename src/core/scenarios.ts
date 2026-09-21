@@ -111,8 +111,8 @@ export const scenarios: ScenarioDefinition[] = [
     "company",
     ["30-person company", "30 kişilik şirket"],
     [
-      "Sensitive documents, 30 typical users and a 60-request peak challenge fixed capacity.",
-      "Hassas belgeler, 30 tipik kullanıcı ve 60 istek tepe yükü sabit kapasiteyi zorlar.",
+      "Sensitive documents, 30 typical concurrent requests and a 60-request peak challenge fixed capacity. User count alone does not determine concurrency.",
+      "Hassas belgeler, tipik 30 eşzamanlı istek ve 60 istek tepe yükü sabit kapasiteyi zorlar. Kullanıcı sayısı tek başına eşzamanlılığı belirlemez.",
     ],
     {
       concurrency: 30,

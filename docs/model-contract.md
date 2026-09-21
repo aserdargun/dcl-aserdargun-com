@@ -1,6 +1,6 @@
 # DCL calculation and evidence contract
 
-DCL answers **where**, LCL explains local capabilities, CLD explains cloud economics, TFL explores serving behavior, and GEX explores GPU execution. ARL agent workloads may supply the same conceptual workload inputs. Links are learning relationships; no shared telemetry or automatic parameter handoff exists.
+Within the AI Learning System, DCL is the shared deployment laboratory of LCL and CLD. DCL answers **where**, LCL explains local capabilities, CLD explains cloud economics, TFL explores serving behavior, and GEX explores GPU execution. ARL agent workloads may supply the same conceptual workload inputs. Ordinary links are learning relationships, without shared telemetry. The explicit ADP → DCL → TFL flow carries validated educational metadata only: DCL projects training inputs into an inference starting profile without importing training memory, and TFL accepts supported 7B/14B workload metadata. Hardware, prices and measured performance are not synchronized. See [cross-lab handoff](CROSS-LAB-HANDOFF.md).
 
 ## Data and evidence
 
@@ -18,7 +18,7 @@ Verified data age: 0–30 days CURRENT; >30–90 AGING; >90 STALE. Invalid, abse
 - Typical estimate uses typical context and concurrency; eligibility uses **maximum context and peak concurrency**.
 - Runtime = base workspace + per-sequence workspace × peak concurrency.
 - Required = (weights + metadata + KV + runtime) × (1 + safety reserve).
-- Default dense GQA architecture: 70B profile has 80 layers, 8 KV heads, head dimension 128, 2-byte KV elements. The 8/32/405B presets use 32/64/126 illustrative layers. These are educational architecture profiles, not inferred product specifications.
+- Default dense GQA architecture: 70B profile has 80 layers, 8 KV heads, head dimension 128, 2-byte KV elements. The 7/8B profiles use 32 illustrative layers, 14B uses 40, 32B uses 64 and 405B uses 126. These are educational architecture profiles, not inferred product specifications.
 - Defaults: 8% metadata, 4 GiB base workspace, 0.025 GiB workspace per sequence, 20% safety reserve. At 70B/Q4, 16K and 20 peak sequences: raw weights ≈32.596 GiB, KV=100 GiB, total ≈167.645 GiB.
 - Usable capacity = physical pool − explicit system reserve. Apple 192−24=168 GiB. Discrete CPU RAM does not get silently added to VRAM.
 - Requirement > usable capacity: OFFLOAD if a separate configured pool could accommodate the deficit, otherwise DOES_NOT_FIT. Both fail the default must-fit constraint. Disabling must-fit can only admit OFFLOAD when the configured separate pool covers the deficit; DOES_NOT_FIT remains ineligible. This is not validation of offload support or speed.
@@ -32,7 +32,7 @@ References for concepts only: [Hugging Face cache strategies](https://huggingfac
 
 Requests per day means **at 100% utilization**. Effective monthly requests = requests/day × active days/month × utilization. Monthly input/output = requests × the respective per-request token count. Typical context may include conversation history distinct from billed new input; the model does not assume every resident KV token is a newly billed input token. Input + output beyond maximum context makes all candidates ineligible until corrected.
 
-Monthly active window = hours/day × days/month. Load hours = window × utilization. Concurrency remains a separately specified resident demand assumption; no unmeasured throughput is used to claim token demand can actually be served.
+Monthly active window = hours/day × days/month. Load hours = window × utilization. Concurrency counts simultaneous requests/sequences, not registered users or company headcount. It remains a separately specified resident demand assumption; no unmeasured throughput is used to claim token demand can actually be served.
 
 Local load power = 90% normal + 10% peak; all figures are whole-system assumptions. Electricity = (load power × load hours + idle watts × idle hours) / 1000 × USD/kWh. Idle hours = enabled window minus load; enabling always-on changes that window to 730 h. A 24/7 or HA availability requirement also enforces this 730 h powered-on window, independently of demand hours. Off-hours are otherwise powered off. Capex persists regardless of usage.
 

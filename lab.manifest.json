@@ -7,8 +7,8 @@
   "type": "interactive-lab",
   "status": "live",
   "tagline": {
-    "en": "One workload. Six deployment paths.",
-    "tr": "Bir iş yükü. Altı dağıtım seçeneği."
+    "en": "The shared deployment laboratory of LCL and CLD.",
+    "tr": "LCL ve CLD’nin ortak dağıtım laboratuvarı."
   },
   "guidingQuestion": {
     "en": "Which deployment remains eligible for this workload and its constraints?",
@@ -202,20 +202,20 @@
         },
         "url": "https://lcl.aserdargun.com/",
         "localizedUrls": {
-          "en": "https://lcl.aserdargun.com/?lang=en",
-          "tr": "https://lcl.aserdargun.com/?lang=tr"
+          "en": "https://lcl.aserdargun.com/en",
+          "tr": "https://lcl.aserdargun.com/tr"
         }
       },
       {
         "id": "cld",
         "label": {
-          "en": "CLD",
-          "tr": "CLD"
+          "en": "CLD · Cloud economics (Turkish)",
+          "tr": "CLD · Bulut ekonomisi"
         },
         "url": "https://cld.aserdargun.com/",
         "localizedUrls": {
-          "en": "https://cld.aserdargun.com/?lang=en",
-          "tr": "https://cld.aserdargun.com/?lang=tr"
+          "en": "https://cld.aserdargun.com/",
+          "tr": "https://cld.aserdargun.com/"
         }
       }
     ],

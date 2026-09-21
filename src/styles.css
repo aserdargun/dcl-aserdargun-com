@@ -1930,3 +1930,14 @@ footer .external {
     font-size: 16px;
   }
 }
+
+.portfolio-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 12px;
+}
+.portfolio-context .external { font-size: inherit; }

@@ -221,8 +221,8 @@ export function explainDecision(
       metric: "performance",
       impact: "unknown",
       explanation: [
-        "Memory feasibility does not verify TTFT or throughput. Benchmark this exact workload in TFL and a real runtime.",
-        "Bellek uygunluğu TTFT veya token hızını doğrulamaz. Bu iş yükünü TFL ve gerçek çalışma zamanında inceleyin.",
+        "Memory feasibility does not verify TTFT or throughput. Explore synthetic serving behavior in TFL; benchmark the exact workload in a real runtime.",
+        "Bellek uygunluğu TTFT veya token hızını doğrulamaz. TFL’de sentetik servis davranışını inceleyin; bu iş yükünü gerçek çalışma zamanında ölçün.",
       ],
     },
     {

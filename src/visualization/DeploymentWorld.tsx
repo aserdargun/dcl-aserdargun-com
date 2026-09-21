@@ -116,10 +116,10 @@ export function DeploymentWorld({
             {t("WORKLOAD", "İŞ YÜKÜ")}
           </text>
           <text y="10" textAnchor="middle">
-            {w.parametersB}B · Q{w.bits} · {w.maxContext / 1024}K
+            {w.parametersB}B · {w.bits === 16 ? "BF16/FP16" : w.bits === 32 ? "FP32" : `Q${w.bits}`} · {w.maxContext / 1024}K
           </text>
           <text y="29" textAnchor="middle">
-            {w.concurrency} → {w.peakConcurrency} {t("users", "kullanıcı")}
+            {w.concurrency} → {w.peakConcurrency} {t("requests", "istek")}
           </text>
         </g>
         {results.map((r) => {

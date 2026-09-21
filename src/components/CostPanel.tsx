@@ -105,8 +105,8 @@ export function CostPanel({
             {name(b.candidate)}: {b.cost.total.toFixed(0)} USD.{" "}
             {cross === null
               ? t(
-                  "No crossing within the selected horizon.",
-                  "Seçili dönemde kesişim yok.",
+                  "No unique, positive crossing within the selected horizon.",
+                  "Seçili dönemde tekil, pozitif kesişim yok.",
                 )
               : `${cross.toFixed(1)} ${t("month break-even", "ay başa baş")}`}
           </desc>
@@ -192,8 +192,8 @@ export function CostPanel({
         <p>
           {cross === null
             ? t(
-                "The calculated lines do not cross. Change usage or prices to test another assumption.",
-                "Hesaplanan çizgiler kesişmiyor. Başka bir varsayımı denemek için kullanım veya fiyatları değiştirin.",
+                "There is no unique, positive cost crossing within this horizon. The lines may be parallel, coincide, or cross outside the selected period. Change usage or prices to explore.",
+                "Bu dönemde tekil, pozitif bir maliyet kesişimi yok. Çizgiler paralel veya çakışık olabilir ya da seçili dönem dışında kesişebilir. Kullanım veya fiyatları değiştirerek inceleyin.",
               )
             : t(
                 "Equal cumulative spending at this point, assuming constant prices and demand. This does not establish performance equivalence.",

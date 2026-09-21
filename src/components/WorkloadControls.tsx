@@ -53,7 +53,15 @@ export function WorkloadControls({
                 ...w,
                 parametersB: Number(v),
                 layers:
-                  v === "7" || v === "8" ? 32 : v === "14" ? 40 : v === "32" ? 64 : v === "70" ? 80 : 126,
+                  v === "7" || v === "8"
+                    ? 32
+                    : v === "14"
+                      ? 40
+                      : v === "32"
+                        ? 64
+                        : v === "70"
+                          ? 80
+                          : 126,
                 kvHeads: 8,
                 headDim: 128,
                 weightOverrideGiB: null,
@@ -74,9 +82,9 @@ export function WorkloadControls({
           <Select
             label={t("Typical context", "Tipik bağlam")}
             value={String(w.context)}
-            options={[128, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072].map(
-              (n) => [String(n), `${n / 1024}K`],
-            )}
+            options={[
+              128, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072,
+            ].map((n) => [String(n), `${n / 1024}K`])}
             onChange={(v) =>
               setW({
                 ...w,
@@ -88,13 +96,15 @@ export function WorkloadControls({
           <Select
             label={t("Maximum context", "Azami bağlam")}
             value={String(w.maxContext)}
-            options={[128, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072]
+            options={[
+              128, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072,
+            ]
               .filter((n) => n >= w.context)
               .map((n) => [String(n), `${n / 1024}K`])}
             onChange={(v) => update("maxContext", Number(v))}
           />
           <Num
-            label={t("Concurrent users", "Eşzamanlı kullanıcı")}
+            label={t("Concurrent requests", "Eşzamanlı istek")}
             value={w.concurrency}
             min={1}
             max={1000}
