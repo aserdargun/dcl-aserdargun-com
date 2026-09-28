@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:5300. Build with `npm run build`; serve production output with `npm run preview` on port 4300. `npm run validate` runs TypeScript, deterministic tests and the production build. Core calculations need no backend, account, API key or external network. Fonts are bundled locally. Language choice persists locally; workload state resets on reload. Lesson checkpoints and cost comparison choices survive mode changes within the session; the laboratory reset clears them. Export a JSON decision report to preserve exact inputs, assumptions and calculations.
+Open http://127.0.0.1:5300. Build with `npm run build`; serve production output with `npm run preview` on port 4300. `npm run validate` runs TypeScript, deterministic tests, the production build and the Playwright browser suite in `e2e/`, which covers manifest scenario routes, locale switching, keyboard operation of the reset and mode controls, the evidence-kind policy and responsive layout. Core calculations need no backend, account, API key or external network. Fonts are bundled locally. Language choice persists locally; workload state resets on reload. Lesson checkpoints and cost comparison choices survive mode changes within the session; the laboratory reset clears them. Export a JSON decision report to preserve exact inputs, assumptions and calculations.
 
 ## What works
 
