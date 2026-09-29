@@ -73,7 +73,7 @@ if (process.argv.includes("--verify")) {
     "index.html",
     "favicon.svg",
     "lab.manifest.json",
-    ...Array.from(html.matchAll(/(?:src|href)="(\/assets\/[^\"]+)"/g), (m) =>
+    ...Array.from(html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g), (m) =>
       m[1].slice(1),
     ),
   ];
