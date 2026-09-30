@@ -154,3 +154,49 @@ test('desktop and mobile viewports render without horizontal overflow', async ({
     );
   }
 });
+
+test('the source ledger, concept bodies, checks and shared scope render in both locales', async ({
+  page,
+}) => {
+  await page.getByRole('button', { name: 'Sources' }).click();
+  const ledger = page.getByTestId('source-ledger');
+  await expect(ledger).toBeVisible();
+  // Every record is dated by an access date and states what it does not support,
+  // so the "official references support concepts only" claim has a record.
+  await expect(ledger.locator('[data-testid="source-record"]').first()).toContainText(
+    'Accessed',
+  );
+  await expect(ledger.locator('[data-testid="source-record"]').first()).toContainText(
+    'Does not support',
+  );
+  await expect(page.getByTestId('concept-list')).toContainText('KV cache');
+  await expect(page.getByTestId('verified-behavior')).toContainText('2026-09-09');
+  await expect(page.getByTestId('shared-lab')).toContainText('14 laboratories');
+
+  await page.getByRole('button', { name: 'Türkçe' }).click();
+  await expect(ledger).toContainText('Erişim');
+  await expect(ledger).toContainText('Desteklemez');
+  await expect(page.getByTestId('concept-list')).toContainText('KV önbellek');
+  await expect(page.getByTestId('shared-lab')).toContainText('14 laboratuvar');
+
+  for (const size of [
+    { width: 1440, height: 900 },
+    { width: 320, height: 740 },
+  ]) {
+    await page.setViewportSize(size);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+      size.width,
+    );
+  }
+});
+
+test('the evidence sentence in the candidate detail opens the ledger', async ({ page }) => {
+  await page.goto(experiment('team70').route);
+  await page.getByText('Evidence, compatibility & operating assumptions').click();
+  await expect(page.getByText(/Official references support concepts only/)).toBeVisible();
+  await page.getByTestId('open-source-ledger').click();
+  await expect(
+    page.locator('nav.mode-nav button[aria-current="page"]'),
+  ).toHaveText('Sources');
+  await expect(page.getByTestId('source-ledger')).toBeVisible();
+});

@@ -4,34 +4,59 @@
     "label": {
       "en": "Deployment choice",
       "tr": "Dağıtım seçimi"
-    }
+    },
+    "body": {
+      "en": "Deciding where a workload runs is a trade-off between control and responsibility: a machine you own keeps the data inside the building, a managed endpoint takes the operating work away from you, a rented VM sits in between. DCL never decides by preference alone — hard constraints decide eligibility first, and preferences only order what already passed.",
+      "tr": "Bir iş yükünün nerede çalışacağına karar vermek, kontrol ile sorumluluk arasındaki bir ödünleşmedir: sahibi olduğunuz makine veriyi binanın içinde tutar, yönetilen uç nokta işletme işini sizden alır, kiralanan sanal makine ikisinin arasında durur. DCL yalnızca tercihle karar vermez — önce kesin kısıtlar uygunluğu belirler; tercihler yalnızca zaten geçen seçenekleri sıralar."
+    },
+    "sourceRefs": ["azure-compute-decision"]
   },
   {
     "id": "concept:capacity-planning",
     "label": {
       "en": "Capacity planning",
       "tr": "Kapasite planlama"
-    }
+    },
+    "body": {
+      "en": "Capacity planning asks what the peak demand is, not the average. Here the ceiling is derived from memory — peak context multiplied by peak concurrency — and it can be lower than any vendor's published maximum because the headroom, workspace and metadata terms are subtracted too.",
+      "tr": "Kapasite planlama ortalama değil tepe talebi sorar. Buradaki tavan bellekten türetilir — tepe bağlam × tepe eşzamanlılık — ve boşluk, çalışma alanı ile üstveri düşüldüğü için hiçbir sağlayıcının ilan ettiği maksimumdan daha düşük olabilir."
+    },
+    "sourceRefs": ["sre-handling-overload"]
   },
   {
     "id": "concept:ownership-cost",
     "label": {
       "en": "Ownership cost",
       "tr": "Sahiplik maliyeti"
-    }
+    },
+    "body": {
+      "en": "Ownership cost is what you stay accountable for across a horizon: the machine, its electricity, the power it draws while idle, and what remains after the horizon ends. A full Total Cost of Ownership also carries labor, financing, depreciation and downtime; DCL's horizon outlay excludes those and says so rather than implying it is a complete TCO.",
+      "tr": "Sahiplik maliyeti, bir zaman ufku boyunca hesap vermeye devam ettiğiniz maliyettir: makine, elektriği, açıkken çektiği boşta gücü ve ufuk bittikten sonra kalan tutar. Tam bir Toplam Sahiplik Maliyeti emeği, finansmanı, amortismanı ve kesinti süresini de taşır; DCL'nin dönem harcaması bunları dışarıda bırakır ve bunu saklamaz."
+    },
+    "sourceRefs": ["finops-terminology"]
   },
   {
     "id": "concept:concurrency",
     "label": {
       "en": "Concurrent requests",
       "tr": "Eşzamanlı istekler"
-    }
+    },
+    "body": {
+      "en": "Concurrency is how many sequences are resident at the same time. Each one holds its own KV cache, so the second or third concurrent request is often the reason a request does not fit at all — which is why raising context and raising concurrency compete for the same memory.",
+      "tr": "Eşzamanlılık, aynı anda bellekte bulunan dizi sayısıdır. Her biri kendi KV önbelleğini tutar; bu yüzden ikinci ya da üçüncü eşzamanlı istek, bir isteğin hiç sığmamasının nedeni olabilir — bağlamı artırmak ve eşzamanlılığı artırmak aynı bellek için yarışır."
+    },
+    "sourceRefs": ["pagedattention-2023"]
   },
   {
     "id": "concept:kv-cache",
     "label": {
       "en": "KV cache",
       "tr": "KV önbellek"
-    }
+    },
+    "body": {
+      "en": "The KV cache is the attention keys and values kept between successive tokens so a request does not recompute the whole sequence. Its size scales with context length, the number of KV heads, the head dimension and the KV precision — which is why doubling the context is not a free change, and why KV precision is a separate input from weight quantization here.",
+      "tr": "KV önbelleği, dizinin tamamını yeniden hesaplamamak için ardışık tokenler arasında saklanan dikkat anahtarları ve değerleridir. Boyutu bağlam uzunluğu, KV başı sayısı, baş boyutu ve KV hassasiyetiyle ölçeklenir — bu yüzden bağlamı ikiye katlamak bedava değildir ve burada KV hassasiyeti ağırlık nicemlemesinden ayrı bir girdidir."
+    },
+    "sourceRefs": ["gqa-2023", "pagedattention-2023"]
   }
 ]

@@ -24,11 +24,13 @@ export function CandidateDetail({
   w,
   e,
   override,
+  onOpenSources,
 }: {
   result: Evaluation;
   w: Workload;
   e: Economics;
   override?: CandidateOverride;
+  onOpenSources: () => void;
 }) {
   const name = useCandidateName();
   const t = useT(),
@@ -157,6 +159,15 @@ export function CandidateDetail({
             "Price changes do not verify hardware or performance. Official references support concepts only, not these prices.",
             "Fiyat değişiklikleri donanımı veya performansı doğrulamaz. Resmi kaynaklar bu fiyatları değil, yalnızca kavramları destekler.",
           )}
+        </p>
+        <p>
+          <button
+            data-testid="open-source-ledger"
+            onClick={onOpenSources}
+            className="inline"
+          >
+            {t("Show the dated source records", "Tarihli kayıtları göster")} →
+          </button>
         </p>
         <div className="runtime-list">
           {["vLLM", "SGLang", "TensorRT-LLM", "llama.cpp", "MLX", "Ollama"].map(

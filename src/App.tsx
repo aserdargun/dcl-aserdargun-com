@@ -38,8 +38,16 @@ import { CostPanel } from "./components/CostPanel";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { ScalePanel } from "./components/ScalePanel";
 import { LearnPanel } from "./components/LearnPanel";
+import { SourcesPanel } from "./components/SourcesPanel";
 import { DeploymentWorld } from "./visualization/DeploymentWorld";
-type Mode = "compare" | "cost" | "memory" | "scale" | "decide" | "learn";
+type Mode =
+  | "compare"
+  | "cost"
+  | "memory"
+  | "scale"
+  | "decide"
+  | "learn"
+  | "sources";
 function initialLocale(): Locale {
   const q = new URLSearchParams(location.search).get("lang");
   if (q === "tr" || q === "en") return q;
@@ -144,6 +152,7 @@ function Workbench({
     ["scale", t("Scale", "Ölçek")],
     ["decide", t("Decide", "Karar")],
     ["learn", t("Learn", "Öğren")],
+    ["sources", t("Sources", "Kaynaklar")],
   ];
   const exportReport = () => {
     const report = {
@@ -515,6 +524,7 @@ function Workbench({
                   setAnswers={setAnswers}
                 />
               )}
+              {mode === "sources" && <SourcesPanel />}
             </div>
             {mode === "compare" && (
               <>
@@ -548,6 +558,7 @@ function Workbench({
                   w={w}
                   e={e}
                   override={overrides[detail.candidate.id]}
+                  onOpenSources={() => setMode("sources")}
                 />
               </>
             )}

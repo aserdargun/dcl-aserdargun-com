@@ -1,0 +1,110 @@
+{
+  "policy": {
+    "en": "Each record below backs a concept only. No record verifies a shipped price, a hardware fit, a latency or a throughput value. Fields left null were not found on the source page and are rendered as missing, not guessed.",
+    "tr": "Aşağıdaki her kayıt yalnızca bir kavramı destekler. Hiçbir kayıt gönderilen fiyatı, donanım uygunluğunu, gecikmeyi veya hız değerini doğrulamaz. Null bırakılan alanlar kaynak sayfasında bulunamadı; tahmin edilmez, eksik görünür."
+  },
+  "records": [
+    {
+      "id": "pagedattention-2023",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "publisher": "arXiv · vLLM authors",
+      "url": "https://arxiv.org/abs/2309.06180",
+      "published": "2023-09-12",
+      "accessed": "2026-09-30",
+      "concepts": ["concept:kv-cache", "concept:concurrency"],
+      "supports": {
+        "en": "That every in-flight sequence carries its own attention state in server memory, and that scheduling requests continuously rather than in fixed batches is how serving systems raise throughput.",
+        "tr": "Havuzdaki her dizinin kendi dikkat durumunu sunucu belleğinde taşıdığını ve istekleri sabit gruplar hâlinde değil sürekli zamanlayarak sunucu sistemlerinin hızı artırdığını."
+      },
+      "doesNotSupport": {
+        "en": "Any price, any hardware fit, or how many sequences a given device holds. DCL's memory numbers are not measured from this paper.",
+        "tr": "Herhangi bir fiyatı, donanım uygunluğunu veya belirli bir cihazın kaç dizi tuttuğunu. DCL'nin bellek sayıları bu makaleden ölçülmüş değildir."
+      }
+    },
+    {
+      "id": "gqa-2023",
+      "title": "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2305.13245",
+      "published": "2023-05-22",
+      "accessed": "2026-09-30",
+      "concepts": ["concept:kv-cache"],
+      "supports": {
+        "en": "That attention state held between tokens is governed by the number of key/value heads and the head dimension, and that grouping them reduces that state relative to one head per query head.",
+        "tr": "Tokenler arasında tutulan dikkat durumunun anahtar/değer başı sayısı ve baş boyutuyla belirlendiğini ve bunların gruplanmasının o durumu azalttığını."
+      },
+      "doesNotSupport": {
+        "en": "DCL's illustrative geometry of 8 KV heads and 128 head dimension, and every memory value in this application. Those stay labelled assumptions.",
+        "tr": "DCL'nin 8 KV başı ve 128 baş boyutundaki örnek geometrisini ve bu uygulamadaki her bellek değerini. Bunlar varsayım olarak etiketli kalır."
+      }
+    },
+    {
+      "id": "sre-handling-overload",
+      "title": "Google SRE Book — Chapter 21: Handling Overload",
+      "publisher": "Google · Site Reliability Engineering",
+      "url": "https://sre.google/sre-book/handling-overload/",
+      "published": null,
+      "accessed": "2026-09-30",
+      "concepts": ["concept:capacity-planning"],
+      "supports": {
+        "en": "The discipline behind capacity planning: overload is unavoidable, so a service decides in advance what it will shed and prioritise instead of discovering the ceiling under load.",
+        "tr": "Kapasite planlamanın arkasındaki disiplin: aşırı yük kaçınılmazdır; bu yüzden bir servis, tavanı yük altında keşfetmek yerine neyi düşüreceğine ve neye öncelik vereceğine önceden karar verir."
+      },
+      "doesNotSupport": {
+        "en": "GPU memory sizing, model fit, or any inference-specific capacity number. The chapter is written for request-serving systems.",
+        "tr": "GPU bellek boyutlandırmasını, model sığdırmayı veya çıkarıma özgü her kapasite sayısını. Bölüm istek sunan sistemler için yazılmıştır."
+      }
+    },
+    {
+      "id": "finops-terminology",
+      "title": "FinOps Terminology — glossary entry for Total Cost of Ownership",
+      "publisher": "FinOps Foundation",
+      "url": "https://www.finops.org/assets/terminology/",
+      "published": "2026-02-18",
+      "accessed": "2026-09-30",
+      "concepts": ["concept:ownership-cost"],
+      "supports": {
+        "en": "A working definition of Total Cost of Ownership: hardware and software acquisition, management and support, communications, labor, opportunity cost of downtime and training. It is the concept behind comparing owned hardware against a rented or managed one.",
+        "tr": "Toplam Sahiplik Maliyeti için çalışır bir tanım: donanım ve yazılım edinimi, yönetim ve destek, iletişim, emek, kesinti fırsat maliyeti ve eğitim. Sahibi olunan donanımı kiralanan ya da yönetilen seçenekle karşılaştırmanın arkasındaki kavramdır."
+      },
+      "doesNotSupport": {
+        "en": "DCL's cost model. A full TCO also includes labor, financing, depreciation and residual value; the horizon outlay shown here deliberately excludes them, so it is not a TCO.",
+        "tr": "DCL'nin maliyet modelini. Tam bir TCO emeği, finansmanı, amortismanı ve artık değeri de içerir; burada gösterilen dönem harcaması bunları bilerek dışarıda bırakır, yani TCO değildir."
+      }
+    },
+    {
+      "id": "azure-compute-decision",
+      "title": "Choose an Azure compute service — compute decision tree",
+      "publisher": "Microsoft Learn · Azure Architecture Center",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/compute-decision-tree",
+      "published": null,
+      "accessed": "2026-09-30",
+      "concepts": ["concept:deployment-choice"],
+      "supports": {
+        "en": "That operators choose among named service models — virtual machines, containers, serverless and managed hosting — through a documented set of questions, where each model carries a different level of operating responsibility.",
+        "tr": "Operatörlerin sanal makine, konteyner, sunucusuz ve yönetilen barındırma gibi adlandırılmış servis modelleri arasında belgelenmiş bir soru dizisiyle karar verdiğini ve her modelin farklı bir işletim sorumluluğu taşıdığını."
+      },
+      "doesNotSupport": {
+        "en": "A recommendation for this workload, a ranking of DCL's six paths, or any price. DCL's six candidates are not taken from this guide.",
+        "tr": "Bu iş yükü için bir öneriyi, DCL'nin altı seçeneğinin sıralamasını veya herhangi bir fiyatı. DCL'nin altı adayı bu rehberden alınmamıştır."
+      }
+    },
+    {
+      "id": "vllm-installation",
+      "title": "vLLM documentation — installation requirements",
+      "publisher": "vLLM project",
+      "url": "https://docs.vllm.ai/en/latest/getting_started/installation/",
+      "published": null,
+      "accessed": "2026-09-30",
+      "concepts": [],
+      "supports": {
+        "en": "That a serving runtime has real driver, operating-system and build prerequisites, so 'it can run locally' is a claim to verify on the target machine rather than assume.",
+        "tr": "Bir servis çalışma zamanının gerçek sürücü, işletim sistemi ve derleme ön koşulları olduğunu; bu yüzden 'yerelde çalışır' ifadesinin hedef makinede doğrulanması gereken bir iddia olduğunu."
+      },
+      "doesNotSupport": {
+        "en": "That any runtime named in this application supports a given model or GPU. DCL marks runtime support UNKNOWN unless a profile states otherwise.",
+        "tr": "Bu uygulamada adı geçen herhangi bir çalışma zamanının belirli bir modeli ya da GPU'yu desteklediğini. Profil aksi söylemedikçe DCL çalışma zamanı desteğini BİLİNMİYOR olarak işaretler."
+      }
+    }
+  ]
+}
