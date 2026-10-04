@@ -232,7 +232,7 @@ export function CandidateDetail({
                 "Yedekli servis varsayılır; SLA ve arıza alanlarını doğrulayın.",
               )}
         </p>
-        <External href="https://docs.vllm.ai/en/latest/getting_started/installation/">
+        <External href="https://docs.vllm.ai/en/latest/getting_started/installation/gpu/">
           {t(
             "Runtime installation requirements",
             "Çalışma zamanı kurulum gereksinimleri",

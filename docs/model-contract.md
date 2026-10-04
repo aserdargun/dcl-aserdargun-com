@@ -26,7 +26,7 @@ Verified data age: 0–30 days CURRENT; >30–90 AGING; >90 STALE. Invalid, abse
 - Token API uses a deliberate fifth state, PROVIDER_MANAGED. A fictitious physical memory number or FITS label would be misleading. Service model/context/concurrency assumptions are checked separately and eligibility is conditional. Exact-model requirement excludes this API alternative.
 - Full-attention dense illustration only. No sliding windows, prefix sharing, cache eviction, runtime-specific alignment, sharding duplication or speed estimates. Weight quantization does not set KV precision.
 
-References for concepts only: [Hugging Face cache strategies](https://huggingface.co/docs/transformers/kv_cache), [MLX unified-memory framework](https://github.com/ml-explore/mlx), [vLLM installation requirements](https://docs.vllm.ai/en/latest/getting_started/installation/). These do not substantiate DCL's synthetic prices, hardware profiles or runtime compatibility.
+References for concepts only: [Hugging Face cache strategies](https://huggingface.co/docs/transformers/kv_cache), [MLX unified-memory framework](https://github.com/ml-explore/mlx), [vLLM installation requirements](https://docs.vllm.ai/en/latest/getting_started/installation/gpu/). These do not substantiate DCL's synthetic prices, hardware profiles or runtime compatibility.
 
 ## Demand and economics
 

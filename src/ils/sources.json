@@ -10,7 +10,7 @@
       "publisher": "arXiv · vLLM authors",
       "url": "https://arxiv.org/abs/2309.06180",
       "published": "2023-09-12",
-      "accessed": "2026-09-30",
+      "accessed": "2026-10-04",
       "concepts": ["concept:kv-cache", "concept:concurrency"],
       "supports": {
         "en": "That every in-flight sequence carries its own attention state in server memory, and that scheduling requests continuously rather than in fixed batches is how serving systems raise throughput.",
@@ -27,7 +27,7 @@
       "publisher": "arXiv",
       "url": "https://arxiv.org/abs/2305.13245",
       "published": "2023-05-22",
-      "accessed": "2026-09-30",
+      "accessed": "2026-10-04",
       "concepts": ["concept:kv-cache"],
       "supports": {
         "en": "That attention state held between tokens is governed by the number of key/value heads and the head dimension, and that grouping them reduces that state relative to one head per query head.",
@@ -44,7 +44,7 @@
       "publisher": "Google · Site Reliability Engineering",
       "url": "https://sre.google/sre-book/handling-overload/",
       "published": null,
-      "accessed": "2026-09-30",
+      "accessed": "2026-10-04",
       "concepts": ["concept:capacity-planning"],
       "supports": {
         "en": "The discipline behind capacity planning: overload is unavoidable, so a service decides in advance what it will shed and prioritise instead of discovering the ceiling under load.",
@@ -61,7 +61,7 @@
       "publisher": "FinOps Foundation",
       "url": "https://www.finops.org/assets/terminology/",
       "published": "2026-02-18",
-      "accessed": "2026-09-30",
+      "accessed": "2026-10-04",
       "concepts": ["concept:ownership-cost"],
       "supports": {
         "en": "A working definition of Total Cost of Ownership: hardware and software acquisition, management and support, communications, labor, opportunity cost of downtime and training. It is the concept behind comparing owned hardware against a rented or managed one.",
@@ -78,7 +78,7 @@
       "publisher": "Microsoft Learn · Azure Architecture Center",
       "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/compute-decision-tree",
       "published": null,
-      "accessed": "2026-09-30",
+      "accessed": "2026-10-04",
       "concepts": ["concept:deployment-choice"],
       "supports": {
         "en": "That operators choose among named service models — virtual machines, containers, serverless and managed hosting — through a documented set of questions, where each model carries a different level of operating responsibility.",
@@ -93,9 +93,9 @@
       "id": "vllm-installation",
       "title": "vLLM documentation — installation requirements",
       "publisher": "vLLM project",
-      "url": "https://docs.vllm.ai/en/latest/getting_started/installation/",
+      "url": "https://docs.vllm.ai/en/latest/getting_started/installation/gpu/",
       "published": null,
-      "accessed": "2026-09-30",
+      "accessed": "2026-10-04",
       "concepts": [],
       "supports": {
         "en": "That a serving runtime has real driver, operating-system and build prerequisites, so 'it can run locally' is a claim to verify on the target machine rather than assume.",

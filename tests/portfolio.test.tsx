@@ -24,7 +24,7 @@ it("uses actual locale paths and queries without rewriting references or handoff
     );
     for (const href of [
       "https://tfl.aserdargun.com/?experiment=kv&ils=payload",
-      "https://docs.vllm.ai/en/latest/getting_started/installation/",
+      "https://docs.vllm.ai/en/latest/getting_started/installation/gpu/",
     ])
       expect(localizedPortfolioHome(href, locale)).toBe(href);
     for (const link of manifest.related!.theory!)
