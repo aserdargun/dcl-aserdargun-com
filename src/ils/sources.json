@@ -10,7 +10,7 @@
       "publisher": "arXiv · vLLM authors",
       "url": "https://arxiv.org/abs/2309.06180",
       "published": "2023-09-12",
-      "accessed": "2026-10-27",
+      "accessed": "2026-10-28",
       "concepts": [
         "concept:kv-cache",
         "concept:concurrency"
@@ -30,7 +30,7 @@
       "publisher": "arXiv",
       "url": "https://arxiv.org/abs/2305.13245",
       "published": "2023-05-22",
-      "accessed": "2026-10-27",
+      "accessed": "2026-10-28",
       "concepts": [
         "concept:kv-cache"
       ],
@@ -49,7 +49,7 @@
       "publisher": "Google · Site Reliability Engineering",
       "url": "https://sre.google/sre-book/handling-overload/",
       "published": null,
-      "accessed": "2026-10-27",
+      "accessed": "2026-10-28",
       "concepts": [
         "concept:capacity-planning"
       ],
@@ -68,7 +68,7 @@
       "publisher": "FinOps Foundation",
       "url": "https://www.finops.org/assets/terminology/",
       "published": "2026-02-18",
-      "accessed": "2026-10-27",
+      "accessed": "2026-10-28",
       "concepts": [
         "concept:ownership-cost"
       ],
@@ -87,7 +87,7 @@
       "publisher": "Microsoft Learn · Azure Architecture Center",
       "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/compute-decision-tree",
       "published": null,
-      "accessed": "2026-10-27",
+      "accessed": "2026-10-28",
       "concepts": [
         "concept:deployment-choice"
       ],
@@ -106,7 +106,7 @@
       "publisher": "vLLM project",
       "url": "https://docs.vllm.ai/en/latest/getting_started/installation/gpu/",
       "published": null,
-      "accessed": "2026-10-27",
+      "accessed": "2026-10-28",
       "concepts": [],
       "supports": {
         "en": "That a serving runtime has real driver, operating-system and build prerequisites, so 'it can run locally' is a claim to verify on the target machine rather than assume.",
